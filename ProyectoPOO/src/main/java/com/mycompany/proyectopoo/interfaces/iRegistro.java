@@ -47,13 +47,14 @@ public interface iRegistro
      * @return  total de segundos
      */
     public int getSegundosTotalesPartida();
-
+    
     /**
      * Retorna el estado de finalización de la partida, True si terminó con éxito la partida y registra puntuación, false si finlaiza la partida sin terminar el juego.
      * @return estado de finalización de juego
      */
     public boolean getEstadoFinalizado();
 
+    
     /**
      * Obtiene la instancia del jugador
      * @return Jugador
