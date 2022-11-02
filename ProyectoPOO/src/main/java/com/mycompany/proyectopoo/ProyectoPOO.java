@@ -4,6 +4,12 @@
  */
 
 package com.mycompany.proyectopoo;
+import com.mycompany.proyectopoo.jugador.Jugador;
+import com.mycompany.proyectopoo.login.*;
+
+
+
+import java.util.ArrayList;
 
 import java.io.*;
 
@@ -12,6 +18,7 @@ import java.io.*;
  * @author navar
  */
 public class ProyectoPOO {
+    public static ArrayList<Jugador> listaJugadores = new ArrayList<Jugador>();
 
     //Funciones con archivos
     
@@ -83,6 +90,6 @@ public class ProyectoPOO {
     }
     
     public static void main(String[] args) {
-        new FrameJuegosDisponibles().setVisible(true);
+        new JLogin().setVisible(true);
     }
 }
