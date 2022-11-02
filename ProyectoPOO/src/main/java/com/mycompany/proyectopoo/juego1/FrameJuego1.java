@@ -9,32 +9,35 @@ import java.util.Arrays;
 import javax.swing.JOptionPane;
 import java.util.Random;
 import javax.swing.JButton;
-
+import com.mycompany.proyectopoo.FrameJuegosDisponibles;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Usuario
  */
-
-
 public class FrameJuego1 extends javax.swing.JFrame {
 
     public static String jugadorGanador;
+    public static int puntaje = 0;
     public static ArrayList<JButton> camposJuego;
-    
+    public static boolean juegoIniciado = false;
+    public static boolean juegoEnProgreso = false;
+
     /**
      * Creates new form FrameJuego1
      */
     public FrameJuego1() {
         initComponents();
-        camposJuego = new ArrayList<JButton>(Arrays.asList(jButton5,jButton7,jButton8,jButton9,jButton11,jButton10,jButton12,jButton14,jButton13));
+        camposJuego = new ArrayList<JButton>(Arrays.asList(jButton5, jButton7, jButton8, jButton9, jButton11, jButton10, jButton12, jButton14, jButton13));
     }
-    
+
     /**
      * Limpia los campos del juego
      */
-    public void limpiarJuego()
-    {
+    public void limpiarJuego() {
+        juegoEnProgreso = false;
         jButton5.setText("");
         jButton7.setText("");
         jButton8.setText("");
@@ -45,72 +48,105 @@ public class FrameJuego1 extends javax.swing.JFrame {
         jButton13.setText("");
         jButton14.setText("");
     }
-    
+
     /**
      * Valida si hubo un gane y nos devuelve true o false y se guardan los datos
      */
-    public boolean validarGane(String simbolo, String jugador)
-    {
-        boolean horizontal1 = ((simbolo.equals(jButton5.getText()))&&(simbolo.equals(jButton7.getText()))&&(simbolo.equals(jButton8.getText())));
-        boolean horizontal2 = ((simbolo.equals(jButton9.getText()))&&(simbolo.equals(jButton10.getText()))&&(simbolo.equals(jButton11.getText())));
-        boolean horizontal3 = ((simbolo.equals(jButton12.getText()))&&(simbolo.equals(jButton14.getText()))&&(simbolo.equals(jButton13.getText())));
-        boolean vertical1 = ((simbolo.equals(jButton5.getText()))&&(simbolo.equals(jButton9.getText()))&&(simbolo.equals(jButton12.getText())));
-        boolean vertical2 = ((simbolo.equals(jButton11.getText()))&&(simbolo.equals(jButton7.getText()))&&(simbolo.equals(jButton14.getText())));
-        boolean vertical3 = ((simbolo.equals(jButton8.getText()))&&(simbolo.equals(jButton10.getText()))&&(simbolo.equals(jButton13.getText())));
-        boolean diagonal1 = ((simbolo.equals(jButton5.getText()))&&(simbolo.equals(jButton11.getText()))&&(simbolo.equals(jButton13.getText())));
-        boolean diagonal2 = ((simbolo.equals(jButton12.getText()))&&(simbolo.equals(jButton11.getText()))&&(simbolo.equals(jButton8.getText())));
-        
-        if(horizontal1 || horizontal2 || horizontal3 || vertical1 || vertical2 || vertical3 || diagonal1 || diagonal2){
+    public boolean validarGane(String simbolo, String jugador) {
+        boolean horizontal1 = ((simbolo.equals(jButton5.getText())) && (simbolo.equals(jButton7.getText())) && (simbolo.equals(jButton8.getText())));
+        boolean horizontal2 = ((simbolo.equals(jButton9.getText())) && (simbolo.equals(jButton10.getText())) && (simbolo.equals(jButton11.getText())));
+        boolean horizontal3 = ((simbolo.equals(jButton12.getText())) && (simbolo.equals(jButton14.getText())) && (simbolo.equals(jButton13.getText())));
+        boolean vertical1 = ((simbolo.equals(jButton5.getText())) && (simbolo.equals(jButton9.getText())) && (simbolo.equals(jButton12.getText())));
+        boolean vertical2 = ((simbolo.equals(jButton11.getText())) && (simbolo.equals(jButton7.getText())) && (simbolo.equals(jButton14.getText())));
+        boolean vertical3 = ((simbolo.equals(jButton8.getText())) && (simbolo.equals(jButton10.getText())) && (simbolo.equals(jButton13.getText())));
+        boolean diagonal1 = ((simbolo.equals(jButton5.getText())) && (simbolo.equals(jButton11.getText())) && (simbolo.equals(jButton13.getText())));
+        boolean diagonal2 = ((simbolo.equals(jButton12.getText())) && (simbolo.equals(jButton11.getText())) && (simbolo.equals(jButton8.getText())));
+
+        if (horizontal1 || horizontal2 || horizontal3 || vertical1 || vertical2 || vertical3 || diagonal1 || diagonal2) {
             jugadorGanador = jugador;
             limpiarJuego();
             return true;
         }
         return false;
     }
-    
+
+    public void actualizarInterfaz() {
+        if (juegoIniciado) {
+            jLabel4.setText("Puntaje Total: " + puntaje);
+        }
+        if (juegoEnProgreso) {
+            jButton6.setText("Rendirse");
+        } else {
+            jButton6.setText("Salir");
+        }
+    }
+
     /**
      * Funcion para obtener numeros aleatorios entre rangos de numeros
+     *
      * @param min El valor inicial del rango
      * @param max El valor final del rango
      */
-    public static int rand(int min, int max)
-    {
+    public static int rand(int min, int max) {
         if (min > max || (max - min + 1 > Integer.MAX_VALUE)) {
             throw new IllegalArgumentException("Rango no valido");
         }
- 
+
         return new Random().nextInt(max - min + 1) + min;
     }
-    
+
     /**
      * Funcion para que el robot haga su jugada en el tik tak toe
      */
-    public void turnoRobot()
-    {   
-        //Primero ver SI el robot tiene una posicion disponible para jugar.
-        
+    public void turnoRobot() {
+        //Vemos SI el robot tiene una posicion disponible para jugar.
         boolean posicionLibre = false;
-        
+
         for (JButton boton : camposJuego) {
-            if(boton.getText().equals("")){
+            if (boton.getText().equals("")) {
                 posicionLibre = true;
                 break;
             }
         }
-        
-        if(posicionLibre)
-        {
-            while(true)
-            {
-                int posicionAleatoria = rand(0,8);
-                if (camposJuego.get(posicionAleatoria).getText().equals("")){
+
+        if (posicionLibre) {
+            while (true) {
+                int posicionAleatoria = rand(0, 8);
+                if (camposJuego.get(posicionAleatoria).getText().equals("")) {
                     camposJuego.get(posicionAleatoria).setText("O");
-                    if(validarGane("O","El Robot"))
-                    {
-                        JOptionPane.showMessageDialog(jPanel1, "Felicidades Robot has ganado");
+                    if (validarGane("O", "")) {
+                        juegoEnProgreso = false;
+                        JOptionPane.showMessageDialog(jPanel1, "Derrota! Puntos Obtenidos: 0");
+                        actualizarInterfaz();
                     }
                     break;
                 }
+            }
+        } else {
+            juegoEnProgreso = false;
+            JOptionPane.showMessageDialog(jPanel1, "Empate! Puntos Obtenidos: 5");
+            puntaje += 5;
+            limpiarJuego();
+            actualizarInterfaz();
+        }
+    }
+
+    /**
+     * Accion para cuando se da click en algun boton durante el juego
+     */
+    public void accionJugada(JButton boton) {
+        juegoIniciado = true;
+        juegoEnProgreso = true;
+        actualizarInterfaz();
+        if (boton.getText().equals("")) {
+            boton.setText("X");
+            if (validarGane("X", "Nombre Usuario")) {
+                juegoEnProgreso = false;
+                JOptionPane.showMessageDialog(jPanel1, "Victoria! Puntos Obtenidos: 10");
+                puntaje += 10;
+                actualizarInterfaz();
+            } else {
+                turnoRobot();
             }
         }
     }
@@ -240,6 +276,7 @@ public class FrameJuego1 extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("TIK TAK TOE");
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -261,9 +298,9 @@ public class FrameJuego1 extends javax.swing.JFrame {
         jLabel4.setText("Suma Puntos Jugando al Tik Tak Toe");
 
         jButton6.setBackground(new java.awt.Color(255, 0, 0));
-        jButton6.setFont(new java.awt.Font("Swis721 Ex BT", 1, 12)); // NOI18N
+        jButton6.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("SALIR");
+        jButton6.setText("Salir");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -445,7 +482,7 @@ public class FrameJuego1 extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if(JOptionPane.showConfirmDialog(rootPane, "Desea salir del programa?") == 0){
+        if (JOptionPane.showConfirmDialog(rootPane, "Desea salir del programa?") == 0) {
             super.dispose();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -455,8 +492,16 @@ public class FrameJuego1 extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel1ComponentResized
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        if(JOptionPane.showConfirmDialog(rootPane, "Desea salir del programa?") == 0){
-            super.dispose();
+        if (jButton6.getText().equals("Rendirse")) {
+            if (JOptionPane.showConfirmDialog(rootPane, "¿Estas seguro de querer rendirte?") == 0) {
+                super.dispose();
+                new FrameJuegosDisponibles().setVisible(true);
+            }
+        } else if (jButton6.getText().equals("Salir")) {
+            if (JOptionPane.showConfirmDialog(rootPane, "¿Estas seguro de querer salir?") == 0) {
+                super.dispose();
+                new FrameJuegosDisponibles().setVisible(true);
+            }
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -465,112 +510,39 @@ public class FrameJuego1 extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel2ComponentResized
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        //Escribir simbolo
-        jButton5.setText("X");
-        if(validarGane("X","Deivid"))
-        {
-            JOptionPane.showMessageDialog(jPanel1, "Felicidades Deivid has ganado");
-        }else
-        {
-            turnoRobot();
-        }
-        
+        accionJugada(jButton5);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        //Escribir simbolo
-        jButton7.setText("X");
-        if(validarGane("X","Deivid"))
-        {
-            JOptionPane.showMessageDialog(jPanel1, "Felicidades Deivid has ganado");
-        }else
-        {
-            turnoRobot();
-        }
+        accionJugada(jButton7);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        //Escribir simbolo
-        jButton8.setText("X");
-        if(validarGane("X","Deivid"))
-        {
-            JOptionPane.showMessageDialog(jPanel1, "Felicidades Deivid has ganado");
-        }else
-        {
-            turnoRobot();
-        }
+        accionJugada(jButton8);
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        //Escribir simbolo
-        jButton9.setText("X");
-        if(validarGane("X","Deivid"))
-        {
-            JOptionPane.showMessageDialog(jPanel1, "Felicidades Deivid has ganado");
-        }else
-        {
-            turnoRobot();
-        }
+        accionJugada(jButton9);
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        //Escribir simbolo
-        jButton10.setText("X");
-        if(validarGane("X","Deivid"))
-        {
-            JOptionPane.showMessageDialog(jPanel1, "Felicidades Deivid has ganado");
-        }else
-        {
-            turnoRobot();
-        }
+        accionJugada(jButton10);
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        //Escribir simbolo
-        jButton11.setText("X");
-        if(validarGane("X","Deivid"))
-        {
-            JOptionPane.showMessageDialog(jPanel1, "Felicidades Deivid has ganado");
-        }else
-        {
-            turnoRobot();
-        }
+        accionJugada(jButton11);
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        //Escribir simbolo
-        jButton12.setText("X");
-        if(validarGane("X","Deivid"))
-        {
-            JOptionPane.showMessageDialog(jPanel1, "Felicidades Deivid has ganado");
-        }else
-        {
-            turnoRobot();
-        }
+        accionJugada(jButton12);
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        //Escribir simbolo
-        jButton13.setText("X");
-        if(validarGane("X","Deivid"))
-        {
-            JOptionPane.showMessageDialog(jPanel1, "Felicidades Deivid has ganado");
-        }else
-        {
-            turnoRobot();
-        }
+        accionJugada(jButton13);
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-        //Escribir simbolo
-        jButton14.setText("X");
-        if(validarGane("X","Deivid"))
-        {
-            JOptionPane.showMessageDialog(jPanel1, "Felicidades Deivid has ganado");
-        }else
-        {
-            turnoRobot();
-        }
+        accionJugada(jButton14);
     }//GEN-LAST:event_jButton14ActionPerformed
 
     /**
@@ -587,16 +559,24 @@ public class FrameJuego1 extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrameJuego1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameJuego1.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrameJuego1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameJuego1.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrameJuego1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameJuego1.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrameJuego1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameJuego1.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
