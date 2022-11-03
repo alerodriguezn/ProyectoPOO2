@@ -10,4 +10,9 @@ package com.mycompany.proyectopoo.juego1;
  */
 public class TicTacToe {
     
+    public static void main(String[] args)
+    {
+        FrameJuego1 tiktaktoe = new FrameJuego1();
+    }
+            
 }
