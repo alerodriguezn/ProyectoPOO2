@@ -12,6 +12,9 @@ import com.mycompany.proyectopoo.login.*;
 import java.util.ArrayList;
 
 import java.io.*;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -70,6 +73,48 @@ public class ProyectoPOO {
         }
         return textoLeido;
     }
+    
+    
+    public static void guardarDatos(){
+   
+        
+        try {
+            FileWriter myWriter = new FileWriter("./usuarios.txt");
+            
+            ProyectoPOO.listaJugadores.forEach((jugador) -> {
+                try {
+                    myWriter.write(jugador.getNombre()+"\n"+jugador.getContrasena()+"\n"+jugador.getPuntos()+"\n");
+                } catch (IOException ex) {
+                    Logger.getLogger(ProyectoPOO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+           // myWriter.write("");
+            myWriter.close();
+            System.out.println("Datos Guardados Correctamente");
+          } catch (IOException e) {
+            System.out.println("Ha ocurrido un error.");
+            e.printStackTrace();
+          }
+              
+    }
+    
+    
+    public static void obtenerDatos(){
+        try {
+            File myObj = new File("./usuarios.txt");
+            Scanner myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+              String nickname = myReader.nextLine();
+              String contrasena = myReader.nextLine();
+              String puntos = myReader.nextLine();
+              listaJugadores.add(new Jugador(nickname,contrasena,Integer.parseInt(puntos)));
+            }
+            myReader.close();
+          } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+         }
+    }
             
     /**
      * Escribe en un archivo un texto enviado por parametro
@@ -90,6 +135,7 @@ public class ProyectoPOO {
     }
     
     public static void main(String[] args) {
+        obtenerDatos();
         new JLogin().setVisible(true);
     }
 }

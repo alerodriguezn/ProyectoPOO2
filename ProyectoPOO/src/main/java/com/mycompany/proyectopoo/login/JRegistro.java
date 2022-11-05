@@ -179,6 +179,7 @@ public class JRegistro extends javax.swing.JFrame {
         }else{
             limpiarCampos();
             ProyectoPOO.listaJugadores.add(new Jugador(nickname,contrasena));
+            ProyectoPOO.guardarDatos();
             JOptionPane.showMessageDialog(null, "Usuario Creado");
         }
         

@@ -164,7 +164,8 @@ public class FrameJuegosDisponibles extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if(JOptionPane.showConfirmDialog(rootPane, "Desea salir del programa?") == 0){
-            super.dispose();
+            super.dispose();   
+            ProyectoPOO.guardarDatos();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 

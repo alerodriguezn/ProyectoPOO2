@@ -20,7 +20,12 @@ public class Jugador {
         this.nombre = nombre;
         this.contrasena = contrasena;
         this.puntos = 0;// Se inicia el puntaje en 0 para cada usuario
-        
+    }
+    
+    public Jugador(String nombre, String contrasena, int puntos){
+        this.nombre = nombre;
+        this.contrasena = contrasena;
+        this.puntos = puntos;
     }
 
     /**
