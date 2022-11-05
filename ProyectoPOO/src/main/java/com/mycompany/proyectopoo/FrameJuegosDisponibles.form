@@ -112,7 +112,6 @@
               <Color blue="6e" green="6e" red="47" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="BIENVENIDO &quot;NOMBRE USUARIO&quot;"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
@@ -127,7 +126,7 @@
               <Color blue="6e" green="6e" red="47" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="JUEGOS DISPONIBLES"/>
+            <Property name="text" type="java.lang.String" value="Disfruta de los juegos disponibles"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="jButton1">

@@ -99,9 +99,10 @@ public class ProyectoPOO {
     }
     
     
-    public static void obtenerDatos(){
+    public static void obtenerDatos() throws IOException{
         try {
             File myObj = new File("./usuarios.txt");
+            myObj.createNewFile(); // si el arhchivo existe no hara nada.
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
               String nickname = myReader.nextLine();
@@ -134,8 +135,12 @@ public class ProyectoPOO {
         }
     }
     
-    public static void main(String[] args) {
-        obtenerDatos();
+    public static void main(String[] args){
+        try {
+            obtenerDatos();
+        } catch (IOException ex) {
+            System.out.println("Error obteniendo los datos");
+        }
         new JLogin().setVisible(true);
     }
 }

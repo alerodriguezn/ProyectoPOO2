@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  * @author navar
  */
 public class JLogin extends javax.swing.JFrame {
-    
+    public String nombreJugador = "";
     private String nickname;
     private String contrasena;
 
@@ -172,14 +172,15 @@ public class JLogin extends javax.swing.JFrame {
         for (Jugador j : ProyectoPOO.listaJugadores) {
             if(j.getNombre().equals(nickname) && j.getContrasena().equals(contrasena) ){
                 usuarioValido = true;
+                nombreJugador = j.getNombre();
             }
         }
         
         if(usuarioValido){
             // Falta redirigir al Centro de Juego
-            JOptionPane.showMessageDialog(null, "Datos Correctos"); 
+            //JOptionPane.showMessageDialog(null, "Datos Correctos"); 
             this.setVisible(false);
-            new FrameJuegosDisponibles().setVisible(true);   
+            new FrameJuegosDisponibles().iniciar(nombreJugador);   
             
         }else if(nickname.equals("")||contrasena.equals("")){
             JOptionPane.showMessageDialog(null, "Rellene todos los campos");

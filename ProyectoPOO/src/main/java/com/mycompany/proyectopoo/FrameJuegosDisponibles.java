@@ -6,6 +6,7 @@ package com.mycompany.proyectopoo;
 
 import javax.swing.JOptionPane;
 import com.mycompany.proyectopoo.juego1.FrameJuego1;
+import com.mycompany.proyectopoo.login.JLogin;
 
 
 /**
@@ -20,7 +21,19 @@ public class FrameJuegosDisponibles extends javax.swing.JFrame {
     public FrameJuegosDisponibles() {
         initComponents();
     }
-
+    
+    public void iniciar(String nombreJugador)
+    {
+        if(nombreJugador.equals(""))
+        {
+            jLabel1.setText("JUEGOS DISPONIBLES");
+        }
+        else{
+            jLabel1.setText("BIENVENIDO "+nombreJugador.toUpperCase());
+        }
+        this.setVisible(true);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,13 +66,12 @@ public class FrameJuegosDisponibles extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Swis721 Ex BT", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(71, 110, 110));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("BIENVENIDO \"NOMBRE USUARIO\"");
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("Swis721 Ex BT", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(71, 110, 110));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("JUEGOS DISPONIBLES");
+        jLabel2.setText("Disfruta de los juegos disponibles");
 
         jButton1.setBackground(new java.awt.Color(71, 110, 110));
         jButton1.setFont(new java.awt.Font("Swis721 Ex BT", 1, 12)); // NOI18N

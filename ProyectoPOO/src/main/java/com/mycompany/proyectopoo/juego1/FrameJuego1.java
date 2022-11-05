@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import java.util.Random;
 import javax.swing.JButton;
 import com.mycompany.proyectopoo.FrameJuegosDisponibles;
+import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,13 +25,21 @@ public class FrameJuego1 extends javax.swing.JFrame {
     public static ArrayList<JButton> camposJuego;
     public static boolean juegoIniciado = false;
     public static boolean juegoEnProgreso = false;
-
     /**
      * Creates new form FrameJuego1
      */
     public FrameJuego1() {
         initComponents();
         camposJuego = new ArrayList<JButton>(Arrays.asList(jButton5, jButton7, jButton8, jButton9, jButton11, jButton10, jButton12, jButton14, jButton13));
+        jButton5.setBackground(Color.WHITE);
+        jButton7.setBackground(Color.WHITE);
+        jButton8.setBackground(Color.WHITE);
+        jButton9.setBackground(Color.WHITE);
+        jButton10.setBackground(Color.WHITE);
+        jButton11.setBackground(Color.WHITE);
+        jButton12.setBackground(Color.WHITE);
+        jButton13.setBackground(Color.WHITE);
+        jButton14.setBackground(Color.WHITE);
     }
 
     /**
@@ -47,6 +56,15 @@ public class FrameJuego1 extends javax.swing.JFrame {
         jButton12.setText("");
         jButton13.setText("");
         jButton14.setText("");
+        jButton5.setBackground(Color.WHITE);
+        jButton7.setBackground(Color.WHITE);
+        jButton8.setBackground(Color.WHITE);
+        jButton9.setBackground(Color.WHITE);
+        jButton10.setBackground(Color.WHITE);
+        jButton11.setBackground(Color.WHITE);
+        jButton12.setBackground(Color.WHITE);
+        jButton13.setBackground(Color.WHITE);
+        jButton14.setBackground(Color.WHITE);
     }
 
     /**
@@ -61,12 +79,64 @@ public class FrameJuego1 extends javax.swing.JFrame {
         boolean vertical3 = ((simbolo.equals(jButton8.getText())) && (simbolo.equals(jButton10.getText())) && (simbolo.equals(jButton13.getText())));
         boolean diagonal1 = ((simbolo.equals(jButton5.getText())) && (simbolo.equals(jButton11.getText())) && (simbolo.equals(jButton13.getText())));
         boolean diagonal2 = ((simbolo.equals(jButton12.getText())) && (simbolo.equals(jButton11.getText())) && (simbolo.equals(jButton8.getText())));
-
         if (horizontal1 || horizontal2 || horizontal3 || vertical1 || vertical2 || vertical3 || diagonal1 || diagonal2) {
             jugadorGanador = jugador;
-            limpiarJuego();
+            Color colorGanador = Color.WHITE;
+            if(simbolo.equals("O")){
+                colorGanador = Color.RED;
+            }else if(simbolo.equals("X")){
+                colorGanador = Color.GREEN;
+            }
+            if(horizontal1)
+            {
+                jButton5.setBackground(colorGanador);
+                jButton7.setBackground(colorGanador);
+                jButton8.setBackground(colorGanador);
+            }
+            if(horizontal2)
+            {
+                jButton9.setBackground(colorGanador);
+                jButton10.setBackground(colorGanador);
+                jButton11.setBackground(colorGanador);
+            }
+            if(horizontal3)
+            {
+                jButton12.setBackground(colorGanador);
+                jButton14.setBackground(colorGanador);
+                jButton13.setBackground(colorGanador);
+            }
+            if(vertical1)
+            {
+                jButton5.setBackground(colorGanador);
+                jButton9.setBackground(colorGanador);
+                jButton12.setBackground(colorGanador);
+            }
+            if(vertical2)
+            {
+                jButton11.setBackground(colorGanador);
+                jButton7.setBackground(colorGanador);
+                jButton14.setBackground(colorGanador);
+            }
+            if(vertical3)
+            {
+                jButton13.setBackground(colorGanador);
+                jButton10.setBackground(colorGanador);
+                jButton8.setBackground(colorGanador);
+            }
+            if(diagonal1)
+            {
+                jButton11.setBackground(colorGanador);
+                jButton5.setBackground(colorGanador);
+                jButton13.setBackground(colorGanador);
+            }
+            if(diagonal2)
+            {
+                jButton12.setBackground(colorGanador);
+                jButton11.setBackground(colorGanador);
+                jButton8.setBackground(colorGanador);
+            }
             return true;
-        }
+        }   
         return false;
     }
 
@@ -117,6 +187,7 @@ public class FrameJuego1 extends javax.swing.JFrame {
                     if (validarGane("O", "")) {
                         juegoEnProgreso = false;
                         JOptionPane.showMessageDialog(jPanel1, "Derrota! Puntos Obtenidos: 0");
+                        limpiarJuego();
                         actualizarInterfaz();
                     }
                     break;
@@ -144,6 +215,7 @@ public class FrameJuego1 extends javax.swing.JFrame {
                 juegoEnProgreso = false;
                 JOptionPane.showMessageDialog(jPanel1, "Victoria! Puntos Obtenidos: 10");
                 puntaje += 10;
+                limpiarJuego();
                 actualizarInterfaz();
             } else {
                 turnoRobot();
@@ -495,12 +567,12 @@ public class FrameJuego1 extends javax.swing.JFrame {
         if (jButton6.getText().equals("Rendirse")) {
             if (JOptionPane.showConfirmDialog(rootPane, "¿Estas seguro de querer rendirte?") == 0) {
                 super.dispose();
-                new FrameJuegosDisponibles().setVisible(true);
+                new FrameJuegosDisponibles().iniciar("");
             }
         } else if (jButton6.getText().equals("Salir")) {
             if (JOptionPane.showConfirmDialog(rootPane, "¿Estas seguro de querer salir?") == 0) {
                 super.dispose();
-                new FrameJuegosDisponibles().setVisible(true);
+                new FrameJuegosDisponibles().iniciar("");
             }
         }
     }//GEN-LAST:event_jButton6ActionPerformed
