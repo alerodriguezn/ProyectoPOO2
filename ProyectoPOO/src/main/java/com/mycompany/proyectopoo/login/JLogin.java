@@ -7,6 +7,8 @@ package com.mycompany.proyectopoo.login;
 import com.mycompany.proyectopoo.ProyectoPOO;
 import com.mycompany.proyectopoo.jugador.Jugador;
 import com.mycompany.proyectopoo.FrameJuegosDisponibles;
+import com.mycompany.proyectopoo.interfaces.iJugador;
+
 
 
 
@@ -21,6 +23,8 @@ public class JLogin extends javax.swing.JFrame {
     public String nombreJugador = "";
     private String nickname;
     private String contrasena;
+    private Jugador jugador;
+    private iJugador jug;
 
     /**
      * Creates new form JRegistro
@@ -158,6 +162,10 @@ public class JLogin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    public iJugador getJugador(Jugador j) {
+        return j ;
+    }
+    
     private void limpiarCampos(){
         txt_nickname.setText("");
         txt_passwd.setText("");
@@ -173,6 +181,8 @@ public class JLogin extends javax.swing.JFrame {
             if(j.getNombre().equals(nickname) && j.getContrasena().equals(contrasena) ){
                 usuarioValido = true;
                 nombreJugador = j.getNombre();
+                jug = j;
+        
             }
         }
         
@@ -180,7 +190,7 @@ public class JLogin extends javax.swing.JFrame {
             // Falta redirigir al Centro de Juego
             //JOptionPane.showMessageDialog(null, "Datos Correctos"); 
             this.setVisible(false);
-            new FrameJuegosDisponibles().iniciar(nombreJugador);   
+            new FrameJuegosDisponibles().iniciar(jug);   
             
         }else if(nickname.equals("")||contrasena.equals("")){
             JOptionPane.showMessageDialog(null, "Rellene todos los campos");
