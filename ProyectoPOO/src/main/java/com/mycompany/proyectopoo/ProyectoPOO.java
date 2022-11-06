@@ -4,6 +4,7 @@
  */
 
 package com.mycompany.proyectopoo;
+import com.mycompany.proyectopoo.interfaces.iRegistro;
 import com.mycompany.proyectopoo.jugador.Jugador;
 import com.mycompany.proyectopoo.login.*;
 
@@ -21,6 +22,7 @@ import java.util.logging.Logger;
  * @author navar
  */
 public class ProyectoPOO {
+    public static int puntosJugador = 0;
     public static ArrayList<Jugador> listaJugadores = new ArrayList<Jugador>();
 
     //Funciones con archivos
@@ -83,7 +85,13 @@ public class ProyectoPOO {
             
             ProyectoPOO.listaJugadores.forEach((jugador) -> {
                 try {
-                    myWriter.write(jugador.getNombre()+"\n"+jugador.getContrasena()+"\n"+jugador.getPuntos()+"\n");
+                    if(jugador.getHistorial()!=null)
+                    {   
+                        jugador.getHistorial().forEach((registro) -> {
+                            puntosJugador+=registro.getPuntaje();
+                        });
+                    }
+                    myWriter.write(jugador.getNombre()+"\n"+jugador.getContrasena()+"\n"+puntosJugador+"\n");
                 } catch (IOException ex) {
                     Logger.getLogger(ProyectoPOO.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -98,7 +106,9 @@ public class ProyectoPOO {
               
     }
     
-    
+    /**
+     * Lee el texto del archivo y llena la lista de jugadores
+     */
     public static void obtenerDatos() throws IOException{
         try {
             File myObj = new File("./usuarios.txt");
@@ -109,6 +119,33 @@ public class ProyectoPOO {
               String contrasena = myReader.nextLine();
               String puntos = myReader.nextLine();
               listaJugadores.add(new Jugador(nickname,contrasena,Integer.parseInt(puntos)));
+            }
+            myReader.close();
+          } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+         }
+    }
+    
+    /**
+     * Lee los datos del archivo y actualiza los puntos
+     */
+    public static void actualizarDatos(String usuario, int nuevo_puntaje) throws IOException{
+        try {
+            int cont = 0;
+            File myObj = new File("./usuarios.txt");
+            myObj.createNewFile(); // si el arhchivo existe no hara nada.
+            Scanner myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+              String nickname = myReader.nextLine();
+              String contrasena = myReader.nextLine();
+              String puntos = String.valueOf(Integer.parseInt(myReader.nextLine())+nuevo_puntaje);
+              if(nickname.equals(usuario))
+              {
+                  listaJugadores.set(cont, new Jugador(nickname,contrasena,Integer.parseInt(puntos)));
+                  System.out.println("Puntaje Actualizado");
+              }
+              cont++;
             }
             myReader.close();
           } catch (FileNotFoundException e) {

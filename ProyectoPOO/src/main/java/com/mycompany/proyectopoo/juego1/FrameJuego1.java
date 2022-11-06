@@ -5,8 +5,7 @@
 package com.mycompany.proyectopoo.juego1;
 
 
-import com.mycompany.proyectopoo.interfaces.iJuego;
-import com.mycompany.proyectopoo.interfaces.iJugador;
+import com.mycompany.proyectopoo.interfaces.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,9 +13,14 @@ import javax.swing.JOptionPane;
 import java.util.Random;
 import javax.swing.JButton;
 import com.mycompany.proyectopoo.FrameJuegosDisponibles;
+import static com.mycompany.proyectopoo.FrameJuegosDisponibles.jugador;
+import com.mycompany.proyectopoo.ProyectoPOO;
 import java.awt.Color;
+import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,7 +28,7 @@ import java.util.logging.Logger;
  *
  * @author Usuario
  */
-public class FrameJuego1 extends javax.swing.JFrame implements iJuego {
+public class FrameJuego1 extends javax.swing.JFrame implements iJuego, iRegistro {
 
     public static String jugadorGanador;
     public static int puntaje = 0;
@@ -33,8 +37,9 @@ public class FrameJuego1 extends javax.swing.JFrame implements iJuego {
     public static boolean juegoEnProgreso = false;
     public static String tituloJuego = "Tic Tac Toe";
     public static String descripcionJuego = "El jugador que logre colocar tres marcas respectivas en una fila horizontal, vertical o diagonal gana el juego";
-    private LocalTime inicioTiempo;
-    private LocalTime finalTiempo;
+    private LocalDateTime inicioFechaHora;
+    private LocalDateTime finFechaHora;
+    private boolean estadoFinalizacion = false;
     
     /**
      * Creates new form FrameJuego1
@@ -221,16 +226,20 @@ public class FrameJuego1 extends javax.swing.JFrame implements iJuego {
     public void accionJugada(JButton boton) {
         juegoIniciado = true;
         juegoEnProgreso = true;
+        if(this.getInicio() == null)
+        {
+            this.setInicio(LocalDateTime.now());
+        }
         actualizarInterfaz();
         if (boton.getText().equals("")) {
             boton.setText("X");
             if (validarGane("X", "Nombre Usuario")) {
                 juegoEnProgreso = false;
                 JOptionPane.showMessageDialog(jPanel1, "Victoria! Puntos Obtenidos: 10");
-                puntaje += 10;
-                finalTiempo = LocalTime.now();
-                System.out.println(finalTiempo.getHour());
                 limpiarJuego();
+                puntaje += 10;
+                this.setFinalizacion(LocalDateTime.now());
+                jugador.registrarPuntaje(puntaje, this);
                 actualizarInterfaz();
             } else {
                 turnoRobot();
@@ -632,12 +641,27 @@ public class FrameJuego1 extends javax.swing.JFrame implements iJuego {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         if (jButton6.getText().equals("Rendirse")) {
-            if (JOptionPane.showConfirmDialog(rootPane, "¿Estas seguro de querer rendirte?") == 0) {
+            if (JOptionPane.showConfirmDialog(rootPane, "¿Estas seguro de querer rendirte? Perderás todos tus puntos!") == 0) {
+                puntaje = 0;
                 super.dispose();
-                //new FrameJuegosDisponibles().iniciar(null);
             }
         } else if (jButton6.getText().equals("Salir")) {
             if (JOptionPane.showConfirmDialog(rootPane, "¿Estas seguro de querer salir?") == 0) {
+                try {
+                    jugador.registrarPuntaje(puntaje, this);
+                    ProyectoPOO.actualizarDatos(jugador.getNombre(), puntaje);
+                } catch (IOException ex) {
+                    Logger.getLogger(FrameJuego1.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                estadoFinalizacion=true;
+                System.out.println("Puntaje: "+this.getPuntaje());
+                System.out.println("Segundos: "+this.getSegundosTotalesPartida());
+                System.out.println("Descripcion: "+this.getDescripcion());
+                System.out.println("Finalizacion: "+this.getFinalizacion());
+                System.out.println("Nombre: "+this.getNombre());
+                System.out.println("Inicio: "+this.getInicio());
+                System.out.println("Nombre Jugador: "+this.getJugador().getNombre());
+                
                 super.dispose();
                 //new FrameJuegosDisponibles().iniciar(null);
             }
@@ -659,10 +683,41 @@ public class FrameJuego1 extends javax.swing.JFrame implements iJuego {
     }
 
     public String getDescripcion() {
-        return tituloJuego;
+        return descripcionJuego;
     }
     
+    public LocalDateTime getInicio(){
+        return inicioFechaHora;
+    }
+
+    public LocalDateTime getFinalizacion(){
+        return finFechaHora;
+    }
+
+    public void setInicio(LocalDateTime fechaHora)
+    {
+        this.inicioFechaHora = fechaHora;
+    }
     
+    public void setFinalizacion(LocalDateTime fechaHora){
+        this.finFechaHora = fechaHora;
+    }
+
+    public int getPuntaje(){
+        return puntaje;
+    }
+
+    public int getSegundosTotalesPartida(){
+        return (int) ChronoUnit.SECONDS.between(inicioFechaHora, finFechaHora);
+    }
+    
+    public boolean getEstadoFinalizado(){
+        return estadoFinalizacion;
+    }
+    
+    public iJugador getJugador(){
+        return jugador;
+    }
     
     /**
      * @param args the command line arguments

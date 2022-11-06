@@ -13,22 +13,20 @@ import java.util.ArrayList;
  * Describe al Jugador
  * @author navar
  */
-public class Jugador implements iJugador {
+public class Jugador implements iJugador{
     
     private String nombre;
     private String contrasena;
-    private int puntos;
+    private ArrayList<iRegistro> historial; //Guarda el juego, la duracion y los puntos que hizo.
     
     public Jugador(String nombre, String contrasena){
         this.nombre = nombre;
         this.contrasena = contrasena;
-        this.puntos = 0;// Se inicia el puntaje en 0 para cada usuario
     }
     
     public Jugador(String nombre, String contrasena, int puntos){
         this.nombre = nombre;
         this.contrasena = contrasena;
-        this.puntos = puntos;
     }
 
     /**
@@ -40,11 +38,11 @@ public class Jugador implements iJugador {
     }
     
     /**
-     * Recupera los puntos del jugador
-     * @return puntos del jugador.
+     * Recupera los datos del historial
+     * @return historial del jugador.
      */
-    public int getPuntos() {
-        return puntos;
+    public ArrayList<iRegistro> getHistorial() {
+        return historial;
     }
 
     /**
@@ -56,26 +54,16 @@ public class Jugador implements iJugador {
     }
 
     /**
-     * Establece los puntos del jugador
-     * @param puntos puntos del jugador
+     * Agrega un nuevo registro al historial
+     * @param registro nuevo registro del jugador
      */
-    public void setPuntos(int puntos) {
-        this.puntos = puntos;
+    public void setRegistro(iRegistro registro) {
+        historial.add(registro);
     }
     
-    /**
-     * Agregar puntos al jugador
-     * @param puntos puntos que se van a agregar
-     */
-    public void agregarPuntos(int puntos) {
-        this.puntos += puntos;
-    }
-
     public String getContrasena() {
         return contrasena;
     }
-    
-    
 
     /**
      * Registra el puntaje obtenido para una determinada partida
@@ -83,7 +71,7 @@ public class Jugador implements iJugador {
      * @param juego instancia de juego de la partida
      */
     public void registrarPuntaje(int puntuacion, iJuego juego){
-    
+        
     }
 
     /**
