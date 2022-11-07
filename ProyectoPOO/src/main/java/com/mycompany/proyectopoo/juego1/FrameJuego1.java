@@ -4,17 +4,16 @@
  */
 package com.mycompany.proyectopoo.juego1;
 
+import com.mycompany.proyectopoo.interfaces.iJuego;
+import com.mycompany.proyectopoo.interfaces.iJugador;
 
-import com.mycompany.proyectopoo.interfaces.*;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 import java.util.Random;
 import javax.swing.JButton;
-import com.mycompany.proyectopoo.FrameJuegosDisponibles;
-import static com.mycompany.proyectopoo.FrameJuegosDisponibles.jugador;
-import com.mycompany.proyectopoo.ProyectoPOO;
 import java.awt.Color;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -28,7 +27,7 @@ import java.util.logging.Logger;
  *
  * @author Usuario
  */
-public class FrameJuego1 extends javax.swing.JFrame implements iJuego, iRegistro {
+public class FrameJuego1 extends javax.swing.JFrame implements iJuego {
 
     public static String jugadorGanador;
     public static int puntaje = 0;
@@ -39,6 +38,7 @@ public class FrameJuego1 extends javax.swing.JFrame implements iJuego, iRegistro
     public static String descripcionJuego = "El jugador que logre colocar tres marcas respectivas en una fila horizontal, vertical o diagonal gana el juego";
     private LocalDateTime inicioFechaHora;
     private LocalDateTime finFechaHora;
+    private iJugador jugador;
     private boolean estadoFinalizacion = false;
     
     /**
@@ -226,9 +226,9 @@ public class FrameJuego1 extends javax.swing.JFrame implements iJuego, iRegistro
     public void accionJugada(JButton boton) {
         juegoIniciado = true;
         juegoEnProgreso = true;
-        if(this.getInicio() == null)
+        if(this.inicioFechaHora == null)
         {
-            this.setInicio(LocalDateTime.now());
+            this.inicioFechaHora = LocalDateTime.now();
         }
         actualizarInterfaz();
         if (boton.getText().equals("")) {
@@ -238,8 +238,8 @@ public class FrameJuego1 extends javax.swing.JFrame implements iJuego, iRegistro
                 JOptionPane.showMessageDialog(jPanel1, "Victoria! Puntos Obtenidos: 10");
                 limpiarJuego();
                 puntaje += 10;
-                this.setFinalizacion(LocalDateTime.now());
-                jugador.registrarPuntaje(puntaje, this);
+                this.finFechaHora = LocalDateTime.now();
+                //jugador.registrarPuntaje(puntaje, this);
                 actualizarInterfaz();
             } else {
                 turnoRobot();
@@ -485,26 +485,22 @@ public class FrameJuego1 extends javax.swing.JFrame implements iJuego, iRegistro
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                            .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(12, 12, 12)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
+                    .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -533,22 +529,23 @@ public class FrameJuego1 extends javax.swing.JFrame implements iJuego, iRegistro
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(212, 212, 212))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 33, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(178, 178, 178))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -647,20 +644,27 @@ public class FrameJuego1 extends javax.swing.JFrame implements iJuego, iRegistro
             }
         } else if (jButton6.getText().equals("Salir")) {
             if (JOptionPane.showConfirmDialog(rootPane, "¿Estas seguro de querer salir?") == 0) {
+                
+                /*
                 try {
                     jugador.registrarPuntaje(puntaje, this);
                     ProyectoPOO.actualizarDatos(jugador.getNombre(), puntaje);
                 } catch (IOException ex) {
                     Logger.getLogger(FrameJuego1.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                */
                 estadoFinalizacion=true;
-                System.out.println("Puntaje: "+this.getPuntaje());
-                System.out.println("Segundos: "+this.getSegundosTotalesPartida());
-                System.out.println("Descripcion: "+this.getDescripcion());
-                System.out.println("Finalizacion: "+this.getFinalizacion());
-                System.out.println("Nombre: "+this.getNombre());
-                System.out.println("Inicio: "+this.getInicio());
-                System.out.println("Nombre Jugador: "+this.getJugador().getNombre());
+                
+                jugador.registrarPuntaje(this.puntaje,this);
+                        
+                                         
+                //System.out.println("Puntaje: "+this.getPuntaje());
+                //System.out.println("Segundos: "+this.getSegundosTotalesPartida());
+                //System.out.println("Descripcion: "+this.getDescripcion());
+                //System.out.println("Finalizacion: "+this.getFinalizacion());
+                //System.out.println("Nombre: "+this.getNombre());
+                //System.out.println("Inicio: "+this.getInicio());
+                //System.out.println("Nombre Jugador: "+this.getJugador().getNombre());
                 
                 super.dispose();
                 //new FrameJuegosDisponibles().iniciar(null);
@@ -670,7 +674,8 @@ public class FrameJuego1 extends javax.swing.JFrame implements iJuego, iRegistro
 
     // Interfaces
     
-    public void iniciarPartida(iJugador jugador){
+    public void iniciarPartida(iJugador jugador){   
+        this.jugador = jugador;
         this.setVisible(true);
     }
     
@@ -685,6 +690,8 @@ public class FrameJuego1 extends javax.swing.JFrame implements iJuego, iRegistro
     public String getDescripcion() {
         return descripcionJuego;
     }
+    
+    /*
     
     public LocalDateTime getInicio(){
         return inicioFechaHora;
@@ -718,6 +725,7 @@ public class FrameJuego1 extends javax.swing.JFrame implements iJuego, iRegistro
     public iJugador getJugador(){
         return jugador;
     }
+    */
     
     /**
      * @param args the command line arguments

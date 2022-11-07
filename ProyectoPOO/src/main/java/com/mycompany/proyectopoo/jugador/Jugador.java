@@ -22,6 +22,7 @@ public class Jugador implements iJugador{
     public Jugador(String nombre, String contrasena){
         this.nombre = nombre;
         this.contrasena = contrasena;
+        this.historial = new ArrayList<>();
     }
     
     public Jugador(String nombre, String contrasena, int puntos){
@@ -64,6 +65,8 @@ public class Jugador implements iJugador{
     public String getContrasena() {
         return contrasena;
     }
+    
+    private ArrayList<String> registros = new ArrayList<>();
 
     /**
      * Registra el puntaje obtenido para una determinada partida
@@ -71,7 +74,17 @@ public class Jugador implements iJugador{
      * @param juego instancia de juego de la partida
      */
     public void registrarPuntaje(int puntuacion, iJuego juego){
+        this.registros.add(puntuacion +", "+ juego.getNombre() +", "+ juego.getDescripcion());
+        //Prueba
+        for (String s : registros) {
+            System.out.println(s);
+        }
         
+    }
+    
+    public void imprimirRegistros(){
+        
+   
     }
 
     /**
