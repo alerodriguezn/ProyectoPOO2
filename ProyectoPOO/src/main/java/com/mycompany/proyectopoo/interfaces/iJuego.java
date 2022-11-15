@@ -15,7 +15,7 @@ public interface iJuego
      * @param jugador jugador quien inicaliza
      * @param centroJuegos
      */
-    public void iniciarPartida(iJugador jugador);
+    public void iniciarPartida(iJugador jugador, iCentroJuego centroJuegos);
 
     /**
      * Cierra la partida en juego sin registrar puntaje para el usuario pero si almacena el registro de tiempo desde el inicio ya hasta su finalización

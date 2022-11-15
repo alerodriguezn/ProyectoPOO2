@@ -6,8 +6,16 @@ package com.mycompany.proyectopoo;
 
 import javax.swing.JOptionPane;
 import com.mycompany.proyectopoo.juego1.FrameJuego1;
+import com.mycompany.proyectopoo.juego2.FrameJuego2;
+
 import com.mycompany.proyectopoo.login.JLogin;
+
 import com.mycompany.proyectopoo.interfaces.iJugador;
+import com.mycompany.proyectopoo.interfaces.iCentroJuego;
+import com.mycompany.proyectopoo.interfaces.iJuego;
+import com.mycompany.proyectopoo.interfaces.iRegistro;
+import java.util.ArrayList;
+
 
 
 
@@ -15,9 +23,14 @@ import com.mycompany.proyectopoo.interfaces.iJugador;
  *
  * @author Usuario
  */
-public class FrameJuegosDisponibles extends javax.swing.JFrame {
+public class FrameJuegosDisponibles extends javax.swing.JFrame implements iCentroJuego {
     
+    
+    private ArrayList<iJuego> juegoDisponibles = new ArrayList<iJuego>();
+    private ArrayList<iRegistro> historial = new ArrayList<iRegistro>();
     public static iJugador jugador;
+    
+    
 
     /**
      * Creates new form FrameJuegosDisponibles
@@ -40,6 +53,28 @@ public class FrameJuegosDisponibles extends javax.swing.JFrame {
         }
         this.setVisible(true);
     }
+    
+    /**
+     * Recupera el registro histórico de partidas para todos los usuarios y sobre un mismo tipo de juego.
+     * @param tipoJuego tipo de juego
+     * @return  listado de registros de partidas realizadas.
+     */
+    public ArrayList<iRegistro> getRegistros(iJuego tipoJuego) {
+        return null;
+   
+    }
+
+    /**
+     * Listado de juegos disponibles en el centro de juegos
+     * @return listado de juegos
+     */
+    public ArrayList<iJuego> getJuegosDisponibles(){
+        return this.juegoDisponibles;
+    
+    }
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -103,8 +138,13 @@ public class FrameJuegosDisponibles extends javax.swing.JFrame {
         jButton3.setBackground(new java.awt.Color(71, 110, 110));
         jButton3.setFont(new java.awt.Font("Swis721 Ex BT", 1, 12)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("AHORCADO");
+        jButton3.setText("ADIVINAR PAIS");
         jButton3.setToolTipText("El jugador debe intentar adivinar la palabra escondida sugiriendo letras con una cantidad de intentos limitados.");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setBackground(new java.awt.Color(71, 110, 110));
         jButton4.setFont(new java.awt.Font("Swis721 Ex BT", 1, 12)); // NOI18N
@@ -177,7 +217,8 @@ public class FrameJuegosDisponibles extends javax.swing.JFrame {
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         super.dispose();
-        new FrameJuego1().iniciarPartida(jugador);
+      
+        new FrameJuego1().iniciarPartida(jugador,this);
         
         
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -192,6 +233,11 @@ public class FrameJuegosDisponibles extends javax.swing.JFrame {
             ProyectoPOO.guardarDatos();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        super.dispose();
+        new FrameJuego2().setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
