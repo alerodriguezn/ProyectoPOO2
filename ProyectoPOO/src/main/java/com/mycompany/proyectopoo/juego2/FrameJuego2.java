@@ -133,6 +133,11 @@ public class FrameJuego2 extends javax.swing.JFrame {
         txt_paisAdivinar.setFont(new java.awt.Font("JetBrains Mono", 0, 24)); // NOI18N
         txt_paisAdivinar.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_paisAdivinar.setEnabled(false);
+        txt_paisAdivinar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_paisAdivinarActionPerformed(evt);
+            }
+        });
 
         lbl_puntos.setFont(new java.awt.Font("Swis721 Ex BT", 1, 18)); // NOI18N
         lbl_puntos.setForeground(new java.awt.Color(71, 110, 110));
@@ -213,11 +218,20 @@ public class FrameJuego2 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txt_paisAdivinarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_paisAdivinarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_paisAdivinarActionPerformed
+
     private void obtenerNumerodeLetras() {
         this.numeroLetras = this.paisNombre.length();
         String str = "";
         for (int x = 0; x < this.numeroLetras; x++) {
-            str = str.concat("X ");
+            if(this.paisNombre.charAt(x) != ' '){
+                str = str.concat("X ");
+            }
+            else{
+                str = str.concat("  ");
+            }
         }
         txt_paisAdivinar.setText(str);
     }
@@ -231,7 +245,7 @@ public class FrameJuego2 extends javax.swing.JFrame {
 
     private void btn_comprobarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_comprobarActionPerformed
 
-        if (txt_respuesta.getText().equals(this.paisNombre)) {
+        if (txt_respuesta.getText().toLowerCase().equals(this.paisNombre.toLowerCase())) {
             this.puntaje += 10;
             lbl_puntos.setText("Puntos: "+this.puntaje);
             JOptionPane.showMessageDialog(null, "Victoria! Puntos Obtenidos: 10");
