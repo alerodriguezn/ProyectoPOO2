@@ -14,6 +14,8 @@ import com.mycompany.proyectopoo.interfaces.iJugador;
 import com.mycompany.proyectopoo.interfaces.iCentroJuego;
 import com.mycompany.proyectopoo.interfaces.iJuego;
 import com.mycompany.proyectopoo.interfaces.iRegistro;
+import com.mycompany.proyectopoo.juego2.Juego2;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 
@@ -37,8 +39,13 @@ public class FrameJuegosDisponibles extends javax.swing.JFrame implements iCentr
      */
 
     public FrameJuegosDisponibles() {
+        
+        this.historial = Registro.obtenerRegistros();
+        juegoDisponibles.add(Juego2.getInstancia());
         initComponents();
-
+        //juegoDisponibles.add(new FrameJuego1());
+        
+        
     }
     
     public void iniciar(iJugador jugadorAct)
@@ -71,6 +78,13 @@ public class FrameJuegosDisponibles extends javax.swing.JFrame implements iCentr
     public ArrayList<iJuego> getJuegosDisponibles(){
         return this.juegoDisponibles;
     
+    }
+    
+    public void agregarRegistro(iRegistro registro) {
+        historial.add(registro);
+        for(iRegistro reg: historial){
+            System.out.println(reg.getJugador().getNombre() +" " + reg.getPuntaje() + " " +reg.getEstadoFinalizado()+ " " + reg.getInicio().format(DateTimeFormatter.ISO_DATE) +" " + reg.getSegundosTotalesPartida()+" Segundos" );
+        }
     }
     
     
@@ -217,7 +231,6 @@ public class FrameJuegosDisponibles extends javax.swing.JFrame implements iCentr
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         super.dispose();
-      
         new FrameJuego1().iniciarPartida(jugador,this);
         
         
@@ -231,12 +244,13 @@ public class FrameJuegosDisponibles extends javax.swing.JFrame implements iCentr
         if(JOptionPane.showConfirmDialog(rootPane, "Desea salir del programa?") == 0){
             super.dispose();   
             ProyectoPOO.guardarDatos();
+            Registro.guardarRegistros(this.historial);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        super.dispose();
-        new FrameJuego2().setVisible(true);
+        //super.dispose();
+        Juego2.getInstancia().iniciarPartida(jugador, this);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**

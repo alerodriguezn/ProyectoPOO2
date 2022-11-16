@@ -1,6 +1,8 @@
 package com.mycompany.proyectopoo.jugador;
 
 import com.mycompany.proyectopoo.interfaces.*;
+import com.mycompany.proyectopoo.interfaces.iRegistro;
+
 import java.util.ArrayList;
 
 /*
@@ -81,20 +83,31 @@ public class Jugador implements iJugador{
         }
         
     }
-    
-    public void imprimirRegistros(){
-        
-   
-    }
+  
 
     /**
      * Listado de registros de juego del usuario para un mismo tipo de juego.
      * @param tipoJuego tipo del juego
      * @return  Registro histórico de partidas.
      */
-    public ArrayList<iRegistro> estadisticas (iJuego tipoJuego){
-        return null;
-    
+    public ArrayList<iRegistro> estadisticas(iJuego tipoJuego) {
+        ArrayList<iRegistro> estad = new ArrayList<iRegistro>();
+        
+        historial.forEach((reg) -> {
+          if (reg.getJuego().getNombre().equals(tipoJuego)) {
+                estad.add(reg);
+           }
+        });
+        
+        return estad;
+        
+        /*
+        for (iRegistro reg : historial) {
+            if (reg.getJuego().getNombre().equals(tipoJuego)) {
+                estad.add(reg);
+            }
+        }*/
+        
     }
     
    

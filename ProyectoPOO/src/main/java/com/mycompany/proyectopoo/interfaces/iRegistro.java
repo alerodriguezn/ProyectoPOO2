@@ -37,6 +37,15 @@ public interface iRegistro
     public void setFinalizacion(LocalDateTime fechaHora);
 
     /**
+     * Recupera el juego
+     *
+     * @return Juego
+     */
+    public iJuego getJuego();
+    
+    
+    
+    /**
      * Retorna el puntaje obtenido en la partida, null en caso de terminar la partida sin completar.
      * @return puntaje obtenido
      */

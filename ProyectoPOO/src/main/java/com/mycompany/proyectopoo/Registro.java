@@ -7,8 +7,18 @@ package com.mycompany.proyectopoo;
 import com.mycompany.proyectopoo.interfaces.iJuego;
 import com.mycompany.proyectopoo.interfaces.iJugador;
 import com.mycompany.proyectopoo.interfaces.iRegistro;
+import com.mycompany.proyectopoo.juego1.FrameJuego1;
+import com.mycompany.proyectopoo.juego2.Juego2;
+import com.mycompany.proyectopoo.jugador.Jugador;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -22,6 +32,10 @@ public class Registro implements iRegistro {
     private iJuego juego;
     private iJugador jugador;
     private int puntaje;
+    
+    public Registro(iJugador jugador){
+        this.jugador = jugador;
+    }
     
     
     /**
@@ -50,6 +64,8 @@ public class Registro implements iRegistro {
         this.inicioPartida = fechaHora;
     
     }
+    
+    
 
     /**
      * Asigna la fecha/hora de finalización de la partida
@@ -84,6 +100,10 @@ public class Registro implements iRegistro {
     
     }
 
+    public void setPuntaje(int puntaje) {
+        this.puntaje = puntaje;
+    }
+
     
     /**
      * Obtiene la instancia del jugador
@@ -93,9 +113,61 @@ public class Registro implements iRegistro {
         return this.jugador;
     
     }
+
+    public void setPartidaFinalizada(Boolean partidaFinalizada) {
+        this.partidaFinalizada = partidaFinalizada;
+    }
     
     public iJuego getJuego(){
         return this.juego;
+    }
+    
+    public void setJuego(iJuego juego) {
+        this.juego = juego;
+    }
+    
+    public static void guardarRegistros(ArrayList<iRegistro> historial) {
+        try {
+            FileWriter file = new FileWriter("./historial.txt");
+            BufferedWriter buffer = new BufferedWriter(file);
+            for (iRegistro r : historial) {
+                buffer.write(r.getJuego().getNombre() + "," + r.getJugador().getNombre() + "," + r.getInicio() + "," + r.getFinalizacion() + "," + r.getPuntaje() + "," + r.getEstadoFinalizado());
+                buffer.newLine();
+            }
+            buffer.close();
+        } catch (IOException e) {
+            System.out.println("No se pudo guardar el archivo.");
+            e.printStackTrace();
+        }
+    }
+    
+    public static ArrayList<iRegistro> obtenerRegistros() {
+        ArrayList<iRegistro> historial = new ArrayList<iRegistro>();
+        try {
+            File file = new File("./historial.txt");
+            Scanner reader = new Scanner(file);
+            while (reader.hasNextLine()) {
+                String linea = reader.nextLine();
+                String[] r = linea.split(",");
+                Registro reg = new Registro(new Jugador(r[1],""));
+                if(r[0].equals("Adivina Pais")){
+                    reg.setJuego(Juego2.getInstancia());
+                }else if(r[0].equals("Tic Tac Toe")){
+                    reg.setJuego(new FrameJuego1());
+                }
+                reg.setPuntaje(Integer.parseInt(r[4]));
+                reg.setFinalizacion(LocalDateTime.parse(r[3]));
+                reg.setInicio(LocalDateTime.parse(r[2]));        
+                reg.setPartidaFinalizada(Boolean.parseBoolean(r[5]));
+                historial.add(reg);
+            }
+            reader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("No se pudo abrir el archivo.");
+            e.printStackTrace();
+        }
+
+        return historial;
     }
     
     

@@ -4,37 +4,107 @@
  */
 package com.mycompany.proyectopoo.juego2;
 import static com.mycompany.proyectopoo.ProyectoPOO.listaJugadores;
+import com.mycompany.proyectopoo.interfaces.iCentroJuego;
 import com.mycompany.proyectopoo.jugador.Jugador;
+import com.mycompany.proyectopoo.interfaces.iJuego;
+import com.mycompany.proyectopoo.interfaces.iJugador;
+import com.mycompany.proyectopoo.Registro;
+
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
  *
  * @author navar
  */
-public final class Juego2 {
+public final class Juego2 implements iJuego {
     
+    private Registro registro;
+    private iCentroJuego centro;
+    private String nombreJuego;
+    private String descripcionJuego;
     private int puntaje = 0;
     private static Juego2 instancia;
     private String pais;
     private String pista;
     private ArrayList<Pais> listaPaises;
+    public static iJugador jugadorActual;
     
     private Juego2(){
+        this.nombreJuego = "Adivina Pais";// PRUEBA
+        this.descripcionJuego = "Adivina el Pais mediante varias Pistas";
         this.listaPaises = new ArrayList<>();     
     }
     
     public static Juego2 getInstancia(){
         if (instancia == null)
         {
-            instancia= new Juego2();
+            instancia = new Juego2();
         }
         return instancia;
+    
+    }
+    
+    
+    /**
+     * Inicializa un juego asociado a un jugador y centro o controlador de juegos.
+     * @param jugador jugador quien inicaliza
+     * @param centroJuegos
+     */
+    @Override
+    public void iniciarPartida(iJugador jugador, iCentroJuego centroJuegos){
+        registro = new Registro(jugador);
+        registro.setJuego(this);
+        registro.setInicio(LocalDateTime.now());
+        
+        this.jugadorActual = jugador;
+        this.centro = centroJuegos;
+        
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new FrameJuego2().setVisible(true);
+
+            }
+        });
+  
+    }
+
+  
+    @Override
+    public void terminarPartida(){
+        
+        registro.setFinalizacion(LocalDateTime.now());
+        registro.setPuntaje(puntaje);
+        registro.setPartidaFinalizada(true);
+        centro.agregarRegistro(registro);
+        jugadorActual.registrarPuntaje(puntaje, this);
+    
+    }
+
+    /**
+     * Obtiene el nombre del juego
+     * @return Nombre del juego
+     */
+    @Override
+    public String getNombre(){
+        return this.nombreJuego;
+    }
+
+    /**
+     * Obtiene la descripción del juego
+     * @return Descripción del juego
+     */
+    @Override
+    public String getDescripcion(){
+        return this.descripcionJuego;
     
     }
     
@@ -66,6 +136,10 @@ public final class Juego2 {
          this.pais = paisElegido.getNombre();
          this.pista = paisElegido.getRegion();
     
+    }
+
+    public void setPuntaje(int puntaje) {
+        this.puntaje += puntaje;
     }
 
     public String getPais() {

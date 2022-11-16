@@ -246,6 +246,7 @@ public class FrameJuego2 extends javax.swing.JFrame {
     private void btn_comprobarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_comprobarActionPerformed
 
         if (txt_respuesta.getText().toLowerCase().equals(this.paisNombre.toLowerCase())) {
+            this.juego2.setPuntaje(10);
             this.puntaje += 10;
             lbl_puntos.setText("Puntos: "+this.puntaje);
             JOptionPane.showMessageDialog(null, "Victoria! Puntos Obtenidos: 10");
@@ -255,12 +256,11 @@ public class FrameJuego2 extends javax.swing.JFrame {
             this.paisNombre = this.juego2.getPais();
             this.pista = this.juego2.getPista();
             lbl_pistas.setText(this.pista);
-            obtenerNumerodeLetras();
-            
-            
+            obtenerNumerodeLetras();                    
             
         } else if (this.vidas == 1) {
             JOptionPane.showMessageDialog(null, "La Partida Ha Finalizado, No tienes mas Vidas");
+            this.juego2.terminarPartida();
             this.dispose();
         } else {
             this.vidas -= 1;
@@ -308,12 +308,14 @@ public class FrameJuego2 extends javax.swing.JFrame {
         // </editor-fold>
 
         /* Create and display the form */
+        
+        /*
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FrameJuego2().setVisible(true);
 
             }
-        });
+        });*/
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -12,6 +12,14 @@ import java.util.ArrayList;
 
 public interface iCentroJuego 
 {
+    
+    /**
+     * Agrega un nuevo registro  
+     *
+     * @param registro registro
+     */
+    public void agregarRegistro(iRegistro registro);
+    
     /**
      * Recupera el registro histórico de partidas para todos los usuarios y sobre un mismo tipo de juego.
      * @param tipoJuego tipo de juego
@@ -24,4 +32,8 @@ public interface iCentroJuego
      * @return listado de juegos
      */
     public ArrayList<iJuego> getJuegosDisponibles();
+    
+    
+    
+    
 }
