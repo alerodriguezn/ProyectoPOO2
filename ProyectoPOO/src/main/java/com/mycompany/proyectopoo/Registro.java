@@ -150,12 +150,14 @@ public class Registro implements iRegistro {
             while (reader.hasNextLine()) {
                 String linea = reader.nextLine();
                 String[] r = linea.split(",");
-                Registro reg = new Registro(new Jugador(r[1],""));
+                iJuego j = null;
                 if(r[0].equals("Adivina Pais")){
-                    reg.setJuego(Juego2.getInstancia());
+                    j = Juego2.getInstancia();
                 }else if(r[0].equals("Tic Tac Toe")){
-                    reg.setJuego(Juego1.getInstancia());
+                    j = Juego1.getInstancia();
                 }
+                Registro reg = new Registro(new Jugador(r[1],""));
+                reg.setJuego(j);                           
                 reg.setPuntaje(Integer.parseInt(r[4]));
                 reg.setFinalizacion(LocalDateTime.parse(r[3]));
                 reg.setInicio(LocalDateTime.parse(r[2]));        

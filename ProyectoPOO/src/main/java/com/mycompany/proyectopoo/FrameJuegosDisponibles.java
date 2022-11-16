@@ -16,8 +16,10 @@ import com.mycompany.proyectopoo.interfaces.iJuego;
 import com.mycompany.proyectopoo.interfaces.iRegistro;
 import com.mycompany.proyectopoo.juego1.Juego1;
 import com.mycompany.proyectopoo.juego2.Juego2;
+import java.awt.Color;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 
 
@@ -68,8 +70,14 @@ public class FrameJuegosDisponibles extends javax.swing.JFrame implements iCentr
      * @return  listado de registros de partidas realizadas.
      */
     public ArrayList<iRegistro> getRegistros(iJuego tipoJuego) {
-        return null;
-   
+        ArrayList<iRegistro> registros = new ArrayList<iRegistro>();
+
+        for (iRegistro r : this.historial) {
+            if (r.getJuego().getNombre().equals(tipoJuego.getNombre())) {
+                registros.add(r);
+            }
+        }
+        return registros;
     }
 
     /**
@@ -101,11 +109,19 @@ public class FrameJuegosDisponibles extends javax.swing.JFrame implements iCentr
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lbl_partidasJugadas = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        btn_generales2 = new javax.swing.JButton();
+        btn_personales2 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txt_estadisticas = new javax.swing.JTextArea();
+        btn_generales1 = new javax.swing.JButton();
+        btn_personales1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        lbl_tiempoDiario = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("INICIO");
@@ -123,11 +139,10 @@ public class FrameJuegosDisponibles extends javax.swing.JFrame implements iCentr
         jLabel1.setForeground(new java.awt.Color(71, 110, 110));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel2.setFont(new java.awt.Font("Swis721 Ex BT", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(71, 110, 110));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Disfruta de los juegos disponibles");
+        lbl_partidasJugadas.setBackground(new java.awt.Color(255, 255, 255));
+        lbl_partidasJugadas.setFont(new java.awt.Font("Swis721 Ex BT", 0, 14)); // NOI18N
+        lbl_partidasJugadas.setForeground(new java.awt.Color(71, 110, 110));
+        lbl_partidasJugadas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         jButton1.setBackground(new java.awt.Color(71, 110, 110));
         jButton1.setFont(new java.awt.Font("Swis721 Ex BT", 1, 12)); // NOI18N
@@ -167,60 +182,162 @@ public class FrameJuegosDisponibles extends javax.swing.JFrame implements iCentr
         jButton4.setToolTipText("Este juego es sorpresa, creado por otros compañeros del curso.");
         jButton4.setLabel("JUEGO 3");
 
+        btn_generales2.setBackground(new java.awt.Color(71, 110, 110));
+        btn_generales2.setFont(new java.awt.Font("Swis721 Ex BT", 1, 12)); // NOI18N
+        btn_generales2.setForeground(new java.awt.Color(255, 255, 255));
+        btn_generales2.setText("Generales");
+        btn_generales2.setToolTipText("El jugador que logre colocar tres marcas respectivas en una fila horizontal, vertical o diagonal gana el juego");
+        btn_generales2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_generales2ActionPerformed(evt);
+            }
+        });
+
+        btn_personales2.setBackground(new java.awt.Color(71, 110, 110));
+        btn_personales2.setFont(new java.awt.Font("Swis721 Ex BT", 1, 12)); // NOI18N
+        btn_personales2.setForeground(new java.awt.Color(255, 255, 255));
+        btn_personales2.setText("Personales");
+        btn_personales2.setToolTipText("El jugador que logre colocar tres marcas respectivas en una fila horizontal, vertical o diagonal gana el juego");
+        btn_personales2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_personales2ActionPerformed(evt);
+            }
+        });
+
+        txt_estadisticas.setBackground(new java.awt.Color(255, 255, 255));
+        txt_estadisticas.setColumns(20);
+        txt_estadisticas.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        txt_estadisticas.setForeground(new java.awt.Color(255, 255, 255));
+        txt_estadisticas.setRows(5);
+        txt_estadisticas.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        txt_estadisticas.setEnabled(false);
+        txt_estadisticas.setSelectedTextColor(new java.awt.Color(255, 255, 255));
+        txt_estadisticas.setSelectionColor(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setViewportView(txt_estadisticas);
+
+        btn_generales1.setBackground(new java.awt.Color(71, 110, 110));
+        btn_generales1.setFont(new java.awt.Font("Swis721 Ex BT", 1, 12)); // NOI18N
+        btn_generales1.setForeground(new java.awt.Color(255, 255, 255));
+        btn_generales1.setText("Generales");
+        btn_generales1.setToolTipText("El jugador que logre colocar tres marcas respectivas en una fila horizontal, vertical o diagonal gana el juego");
+        btn_generales1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_generales1ActionPerformed(evt);
+            }
+        });
+
+        btn_personales1.setBackground(new java.awt.Color(71, 110, 110));
+        btn_personales1.setFont(new java.awt.Font("Swis721 Ex BT", 1, 12)); // NOI18N
+        btn_personales1.setForeground(new java.awt.Color(255, 255, 255));
+        btn_personales1.setText("Personales");
+        btn_personales1.setToolTipText("El jugador que logre colocar tres marcas respectivas en una fila horizontal, vertical o diagonal gana el juego");
+        btn_personales1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_personales1ActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel3.setFont(new java.awt.Font("Swis721 Ex BT", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(71, 110, 110));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Disfruta de los juegos disponibles");
+
+        lbl_tiempoDiario.setBackground(new java.awt.Color(255, 255, 255));
+        lbl_tiempoDiario.setFont(new java.awt.Font("Swis721 Ex BT", 0, 14)); // NOI18N
+        lbl_tiempoDiario.setForeground(new java.awt.Color(71, 110, 110));
+        lbl_tiempoDiario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addContainerGap(40, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(251, 251, 251))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(22, 22, 22))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(156, 156, 156)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 436, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(15, 15, 15))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(66, 66, 66)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btn_generales1, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
+                                    .addComponent(btn_generales2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btn_personales2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btn_personales1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lbl_partidasJugadas, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lbl_tiempoDiario, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addContainerGap(34, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(22, 22, 22)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(75, 75, 75)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_personales1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_generales1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_generales2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_personales2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_partidasJugadas)
+                    .addComponent(lbl_tiempoDiario))
+                .addContainerGap(39, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(110, 110, 110)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(439, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -250,6 +367,118 @@ public class FrameJuegosDisponibles extends javax.swing.JFrame implements iCentr
         //super.dispose();
         Juego2.getInstancia().iniciarPartida(jugador, this);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void btn_generales2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_generales2ActionPerformed
+        
+        lbl_partidasJugadas.setText("");
+        Color colorVerde =new Color(71,110,110);
+        txt_estadisticas.setBackground(colorVerde);
+        txt_estadisticas.setForeground(Color.WHITE);
+        txt_estadisticas.setText("");
+        //Método para ordenar el arrayList(Por puntaje)
+        ArrayList<iRegistro> registros = getRegistros(Juego2.getInstancia());
+        registros.sort((iRegistro x, iRegistro y) -> y.getPuntaje() - x.getPuntaje());      
+        
+        for (int x = 0; x < 10; x++) {
+            if (x < registros.size()) {
+                iRegistro r = registros.get(x);
+                txt_estadisticas.append(
+                        "\n | Nombre Usuario: " + r.getJugador().getNombre() +
+                        " | Puntaje: " + r.getPuntaje() +
+                        " | Inicio: "+r.getInicio().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))+
+                        " | Final: "+r.getFinalizacion().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))+"\n"
+                );
+            }
+        }
+    }//GEN-LAST:event_btn_generales2ActionPerformed
+
+    private void btn_personales2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_personales2ActionPerformed
+        lbl_partidasJugadas.setText("");
+        Color colorVerde =new Color(71,110,110);
+        txt_estadisticas.setBackground(colorVerde);
+        txt_estadisticas.setForeground(Color.WHITE);
+        txt_estadisticas.setText("");
+        ArrayList<iRegistro> listaRegistros = new ArrayList<iRegistro>();
+        listaRegistros = getRegistros(Juego2.getInstancia());
+        int juegos = 0;
+        int horasJugadas = 0;
+        for (iRegistro registro: listaRegistros) {
+            if (registro.getJugador().getNombre().equals(jugador.getNombre())){
+                juegos++;
+                horasJugadas += registro.getSegundosTotalesPartida();
+                txt_estadisticas.setText(
+                        "\nPuntaje: "+registro.getPuntaje() +
+                        " | Inicio: "+registro.getInicio().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))+
+                        " | Final: "+registro.getFinalizacion().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))+
+                        " | Tiempo: "+registro.getSegundosTotalesPartida()+" Segundos"+
+                        " | Finalizada: "+registro.getEstadoFinalizado()+"\n"
+                );
+            
+            }
+        
+        
+        }
+        
+        lbl_partidasJugadas.setText("Partidas Jugadas: " + juegos);
+        
+    }//GEN-LAST:event_btn_personales2ActionPerformed
+
+    private void btn_generales1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_generales1ActionPerformed
+        lbl_partidasJugadas.setText("");
+        Color colorVerde =new Color(71,110,110);
+        txt_estadisticas.setBackground(colorVerde);
+        txt_estadisticas.setForeground(Color.WHITE);
+        txt_estadisticas.setText("");
+       //Método para ordenar el arrayList(Por puntaje)
+        ArrayList<iRegistro> registros = getRegistros(Juego1.getInstancia());
+        registros.sort((iRegistro x, iRegistro y) -> y.getPuntaje() - x.getPuntaje());      
+        
+        for (int x = 0; x < 10; x++) {
+            if (x < registros.size()) {
+                iRegistro r = registros.get(x);
+                txt_estadisticas.append(
+                        "\n | Nombre Usuario: " + r.getJugador().getNombre() +
+                        " | Puntaje: " + r.getPuntaje() +
+                        " | Inicio: "+r.getInicio().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))+
+                        " | Final: "+r.getFinalizacion().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))+"\n"
+                );
+            }
+        }
+        
+        
+    }//GEN-LAST:event_btn_generales1ActionPerformed
+
+    
+    
+    
+    private void btn_personales1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_personales1ActionPerformed
+        lbl_partidasJugadas.setText("");
+        Color colorVerde = new Color(71,110,110);
+        txt_estadisticas.setBackground(colorVerde);
+        txt_estadisticas.setForeground(Color.WHITE);
+        txt_estadisticas.setText("");
+        ArrayList<iRegistro> listaRegistros = new ArrayList<iRegistro>();
+        listaRegistros = getRegistros(Juego1.getInstancia());
+        int juegos = 0;
+        int horasJugadas = 0;
+        for (iRegistro registro: listaRegistros) {
+            if (registro.getJugador().getNombre().equals(jugador.getNombre())){
+                juegos++;
+                horasJugadas += registro.getSegundosTotalesPartida();
+                txt_estadisticas.append(
+                        "\nPuntaje: "+registro.getPuntaje() +
+                        " | Inicio: "+registro.getInicio().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))+
+                        " | Final: "+registro.getFinalizacion().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))+
+                        " | Tiempo: "+registro.getSegundosTotalesPartida()+" Segundos"+
+                        " | Finalizada: "+registro.getEstadoFinalizado()+"\n"
+                );
+            
+            }             
+        }
+        
+        lbl_partidasJugadas.setText("Partidas Jugadas: " + juegos);
+        
+    }//GEN-LAST:event_btn_personales1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -288,12 +517,20 @@ public class FrameJuegosDisponibles extends javax.swing.JFrame implements iCentr
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_generales1;
+    private javax.swing.JButton btn_generales2;
+    private javax.swing.JButton btn_personales1;
+    private javax.swing.JButton btn_personales2;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbl_partidasJugadas;
+    private javax.swing.JLabel lbl_tiempoDiario;
+    private javax.swing.JTextArea txt_estadisticas;
     // End of variables declaration//GEN-END:variables
 }

@@ -61,8 +61,7 @@ public final class Juego2 implements iJuego {
      */
     @Override
     public void iniciarPartida(iJugador jugador, iCentroJuego centroJuegos){
-        registro = new Registro(jugador);
-        registro.setJuego(this);
+        registro = new Registro(jugador);      
         registro.setInicio(LocalDateTime.now());
         
         this.jugadorActual = jugador;
@@ -79,7 +78,7 @@ public final class Juego2 implements iJuego {
   
     @Override
     public void terminarPartida(){
-        
+        registro.setJuego(getInstancia());
         registro.setFinalizacion(LocalDateTime.now());
         registro.setPuntaje(puntaje);
         registro.setPartidaFinalizada(true);

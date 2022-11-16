@@ -27,7 +27,7 @@ public final class Juego1 implements iJuego {
     public static iJugador jugadorActual;
     
     private Juego1(){
-        this.nombreJuego = "Tik Tak Toe";// PRUEBA
+        this.nombreJuego = "Tic Tac Toe";// PRUEBA
         this.descripcionJuego = "Coloca tres marcas respectivas en una fila horizontal, vertical o diagonal para ganar"; 
     }
     
@@ -48,7 +48,7 @@ public final class Juego1 implements iJuego {
     @Override
     public void iniciarPartida(iJugador jugador, iCentroJuego centroJuegos){
         registro = new Registro(jugador);
-        registro.setJuego(this);
+        
         registro.setInicio(LocalDateTime.now());
         
         this.jugadorActual = jugador;
@@ -59,13 +59,13 @@ public final class Juego1 implements iJuego {
                 new FrameJuego1().setVisible(true);
             }
         });
-  
+
     }
 
   
     @Override
     public void terminarPartida(){
-        
+        registro.setJuego(getInstancia());
         registro.setFinalizacion(LocalDateTime.now());
         registro.setPuntaje(puntaje);
         registro.setPartidaFinalizada(true);
