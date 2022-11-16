@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.proyectopoo.juego2;
+package com.mycompany.proyectopoo.juego1;
 import static com.mycompany.proyectopoo.ProyectoPOO.listaJugadores;
 import com.mycompany.proyectopoo.interfaces.iCentroJuego;
 import com.mycompany.proyectopoo.jugador.Jugador;
@@ -11,48 +11,34 @@ import com.mycompany.proyectopoo.interfaces.iJugador;
 import com.mycompany.proyectopoo.Registro;
 
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 /**
  *
  * @author navar
  */
-public final class Juego2 implements iJuego {
+public final class Juego1 implements iJuego {
     
     private Registro registro;
     private iCentroJuego centro;
     private String nombreJuego;
     private String descripcionJuego;
     private int puntaje = 0;
-    private static Juego2 instancia;
-    private String pais;
-    private String pista;
-    private ArrayList<Pais> listaPaises;
+    private static Juego1 instancia;
     public static iJugador jugadorActual;
     
-    private Juego2(){
-        this.nombreJuego = "Adivina Pais";// PRUEBA
-        this.descripcionJuego = "Adivina el Pais mediante varias Pistas";
-        this.listaPaises = new ArrayList<>();     
+    private Juego1(){
+        this.nombreJuego = "Tik Tak Toe";// PRUEBA
+        this.descripcionJuego = "Coloca tres marcas respectivas en una fila horizontal, vertical o diagonal para ganar"; 
     }
     
-    public static Juego2 getInstancia(){
+    public static Juego1 getInstancia(){
         if (instancia == null)
         {
-            instancia = new Juego2();
+            instancia = new Juego1();
         }
         return instancia;
     
     }
-    
     
     /**
      * Inicializa un juego asociado a un jugador y centro o controlador de juegos.
@@ -70,7 +56,7 @@ public final class Juego2 implements iJuego {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrameJuego2().setVisible(true);
+                new FrameJuego1().setVisible(true);
             }
         });
   
@@ -86,6 +72,7 @@ public final class Juego2 implements iJuego {
         centro.agregarRegistro(registro);
         jugadorActual.registrarPuntaje(puntaje, this);
         System.out.println("Registro agregado");
+    
     }
 
     /**
@@ -107,50 +94,10 @@ public final class Juego2 implements iJuego {
     
     }
     
-    
-    public void getPaises(){
-        try {
-            File myObj = new File("./paises.txt");
-            myObj.createNewFile(); 
-            Scanner myReader = new Scanner(myObj);
-            while (myReader.hasNextLine()) {
-              String nombre = myReader.nextLine();
-              System.out.println(nombre);
-              String pista = myReader.nextLine();
-              listaPaises.add(new Pais(nombre,pista));
-            }
-            myReader.close();
-          } catch (FileNotFoundException e) {
-            System.out.println("No se puede abrir el archivo.");
-            e.printStackTrace();
-         } catch (IOException ex) {
-            Logger.getLogger(Juego2.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    public void setPais(){
-         Random r = new Random();
-         int numAleatorio = r.nextInt(26)+1;
-         Pais paisElegido = listaPaises.get(numAleatorio);
-         this.pais = paisElegido.getNombre();
-         this.pista = paisElegido.getRegion();
-    
-    }
-
     public void setPuntaje(int puntaje) {
         this.puntaje += puntaje;
     }
 
-    public String getPais() {
-        return pais;
-    }
-
-    public String getPista() {
-        return pista;
-    }
-    
-
-    
     
 
     

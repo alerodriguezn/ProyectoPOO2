@@ -14,6 +14,7 @@ import com.mycompany.proyectopoo.interfaces.iJugador;
 import com.mycompany.proyectopoo.interfaces.iCentroJuego;
 import com.mycompany.proyectopoo.interfaces.iJuego;
 import com.mycompany.proyectopoo.interfaces.iRegistro;
+import com.mycompany.proyectopoo.juego1.Juego1;
 import com.mycompany.proyectopoo.juego2.Juego2;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -230,10 +231,7 @@ public class FrameJuegosDisponibles extends javax.swing.JFrame implements iCentr
 
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        super.dispose();
-        new FrameJuego1().iniciarPartida(jugador,this);
-        
-        
+        Juego1.getInstancia().iniciarPartida(jugador, this);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jPanel1ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanel1ComponentResized

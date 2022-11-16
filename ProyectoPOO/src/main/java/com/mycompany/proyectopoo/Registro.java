@@ -8,6 +8,7 @@ import com.mycompany.proyectopoo.interfaces.iJuego;
 import com.mycompany.proyectopoo.interfaces.iJugador;
 import com.mycompany.proyectopoo.interfaces.iRegistro;
 import com.mycompany.proyectopoo.juego1.FrameJuego1;
+import com.mycompany.proyectopoo.juego1.Juego1;
 import com.mycompany.proyectopoo.juego2.Juego2;
 import com.mycompany.proyectopoo.jugador.Jugador;
 import java.io.BufferedWriter;
@@ -153,7 +154,7 @@ public class Registro implements iRegistro {
                 if(r[0].equals("Adivina Pais")){
                     reg.setJuego(Juego2.getInstancia());
                 }else if(r[0].equals("Tic Tac Toe")){
-                    reg.setJuego(new FrameJuego1());
+                    reg.setJuego(Juego1.getInstancia());
                 }
                 reg.setPuntaje(Integer.parseInt(r[4]));
                 reg.setFinalizacion(LocalDateTime.parse(r[3]));

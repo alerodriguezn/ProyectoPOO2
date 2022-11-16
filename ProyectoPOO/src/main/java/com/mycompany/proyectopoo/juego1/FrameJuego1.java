@@ -30,10 +30,12 @@ import java.util.logging.Logger;
  *
  * @author Usuario
  */
-public class FrameJuego1 extends javax.swing.JFrame implements iJuego {
+public class FrameJuego1 extends javax.swing.JFrame {
 
+    private Juego1 juego1;
+    private int puntaje;
+    
     public static String jugadorGanador;
-    public static int puntaje = 0;
     public static ArrayList<JButton> camposJuego;
     public static boolean juegoIniciado = false;
     public static boolean juegoEnProgreso = false;
@@ -49,7 +51,17 @@ public class FrameJuego1 extends javax.swing.JFrame implements iJuego {
      * Creates new form FrameJuego1
      */
     public FrameJuego1() {
+        this.juego1 = Juego1.getInstancia();
+        this.puntaje = 0;
         initComponents();
+        iniciarJuego();
+    }
+    
+    public void iniciarJuego(){
+        llenarCampos();
+    }
+    
+    public void llenarCampos(){
         camposJuego = new ArrayList<JButton>(Arrays.asList(jButton5, jButton7, jButton8, jButton9, jButton11, jButton10, jButton12, jButton14, jButton13));
         jButton5.setBackground(Color.WHITE);
         jButton7.setBackground(Color.WHITE);
@@ -61,6 +73,7 @@ public class FrameJuego1 extends javax.swing.JFrame implements iJuego {
         jButton13.setBackground(Color.WHITE);
         jButton14.setBackground(Color.WHITE);
     }
+    
 
     /**
      * Limpia los campos del juego
@@ -109,6 +122,11 @@ public class FrameJuego1 extends javax.swing.JFrame implements iJuego {
             }else if(simbolo.equals("X")){
                 colorGanador = Color.GREEN;
             }
+            
+            //Agregar puntajes
+            this.juego1.setPuntaje(10);
+            this.puntaje += 10;
+            
             if(horizontal1)
             {
                 jButton5.setBackground(colorGanador);
@@ -218,7 +236,7 @@ public class FrameJuego1 extends javax.swing.JFrame implements iJuego {
         } else {
             juegoEnProgreso = false;
             JOptionPane.showMessageDialog(jPanel1, "Empate! Puntos Obtenidos: 5");
-            puntaje += 5;
+            this.puntaje += 5;
             limpiarJuego();
             actualizarInterfaz();
         }
@@ -241,9 +259,8 @@ public class FrameJuego1 extends javax.swing.JFrame implements iJuego {
                 juegoEnProgreso = false;
                 JOptionPane.showMessageDialog(jPanel1, "Victoria! Puntos Obtenidos: 10");
                 limpiarJuego();
-                puntaje += 10;
+                this.puntaje += 10;
                 this.finFechaHora = LocalDateTime.now();
-                //jugador.registrarPuntaje(puntaje, this);
                 actualizarInterfaz();
             } else {
                 turnoRobot();
@@ -640,59 +657,20 @@ public class FrameJuego1 extends javax.swing.JFrame implements iJuego {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         if (jButton6.getText().equals("Rendirse")) {
             if (JOptionPane.showConfirmDialog(rootPane, "¿Estas seguro de querer rendirte? Perderás todos tus puntos!") == 0) {
-                puntaje = 0;
+                this.puntaje = 0;
                 super.dispose();
             }
         } else if (jButton6.getText().equals("Salir")) {
             if (JOptionPane.showConfirmDialog(rootPane, "¿Estas seguro de querer salir?") == 0) {
-                
-                /*
-                try {
-                    jugador.registrarPuntaje(puntaje, this);
-                    ProyectoPOO.actualizarDatos(jugador.getNombre(), puntaje);
-                } catch (IOException ex) {
-                    Logger.getLogger(FrameJuego1.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                */
                 estadoFinalizacion=true;
-                
-                jugador.registrarPuntaje(this.puntaje,this);
-                        
-                                         
-                //System.out.println("Puntaje: "+this.getPuntaje());
-                //System.out.println("Segundos: "+this.getSegundosTotalesPartida());
-                //System.out.println("Descripcion: "+this.getDescripcion());
-                //System.out.println("Finalizacion: "+this.getFinalizacion());
-                //System.out.println("Nombre: "+this.getNombre());
-                //System.out.println("Inicio: "+this.getInicio());
-                //System.out.println("Nombre Jugador: "+this.getJugador().getNombre());
-                
+                //jugador.registrarPuntaje(this.puntaje,this);
+                this.juego1.terminarPartida();
                 super.dispose();
                 //new FrameJuegosDisponibles().iniciar(null);
             }
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    // Interfaces
-    
-    public void iniciarPartida(iJugador jugador, iCentroJuego centroJuegos){   
-        this.centro = centroJuegos;
-        this.jugador = jugador;
-        this.setVisible(true);
-    }
-    
-    public void terminarPartida() {     
-        super.dispose();
-    }
-
-    public String getNombre() {
-        return tituloJuego;
-    }
-
-    public String getDescripcion() {
-        return descripcionJuego;
-    }
-    
     /*
     
     public LocalDateTime getInicio(){
