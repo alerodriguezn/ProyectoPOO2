@@ -54,13 +54,12 @@ public class FrameJuego1 extends javax.swing.JFrame {
         this.juego1 = Juego1.getInstancia();
         this.puntaje = 0;
         initComponents();
-        iniciarJuego();
-    }
-    
-    public void iniciarJuego(){
         llenarCampos();
     }
     
+    /**
+    * Asigna los valores de los campos por defecto
+    */
     public void llenarCampos(){
         camposJuego = new ArrayList<JButton>(Arrays.asList(jButton5, jButton7, jButton8, jButton9, jButton11, jButton10, jButton12, jButton14, jButton13));
         jButton5.setBackground(Color.WHITE);
@@ -104,6 +103,7 @@ public class FrameJuego1 extends javax.swing.JFrame {
 
     /**
      * Valida si hubo un gane y nos devuelve true o false y se guardan los datos
+     * @param simbolo el simbolo que tiene el ganador ya sea la letra X o la letra O
      */
     public boolean validarGane(String simbolo, String jugador) {
         boolean horizontal1 = ((simbolo.equals(jButton5.getText())) && (simbolo.equals(jButton7.getText())) && (simbolo.equals(jButton8.getText())));
@@ -180,6 +180,9 @@ public class FrameJuego1 extends javax.swing.JFrame {
         return false;
     }
 
+    /**
+    * Actualiza los valores del puntaje y además muestra en el boton rojo la palabra Rendirse o Salir
+    */
     public void actualizarInterfaz() {
         if (juegoIniciado) {
             jLabel4.setText("Puntaje Total: " + puntaje);
@@ -237,6 +240,7 @@ public class FrameJuego1 extends javax.swing.JFrame {
             juegoEnProgreso = false;
             JOptionPane.showMessageDialog(jPanel1, "Empate! Puntos Obtenidos: 5");
             this.puntaje += 5;
+            this.juego1.setPuntaje(5);
             limpiarJuego();
             actualizarInterfaz();
         }
@@ -244,6 +248,7 @@ public class FrameJuego1 extends javax.swing.JFrame {
 
     /**
      * Accion para cuando se da click en algun boton durante el juego
+     * @param boton recibe el boton que ha sido presionado
      */
     public void accionJugada(JButton boton) {
         juegoIniciado = true;
@@ -259,7 +264,6 @@ public class FrameJuego1 extends javax.swing.JFrame {
                 juegoEnProgreso = false;
                 JOptionPane.showMessageDialog(jPanel1, "Victoria! Puntos Obtenidos: 10");
                 limpiarJuego();
-                this.puntaje += 10;
                 this.finFechaHora = LocalDateTime.now();
                 actualizarInterfaz();
             } else {
@@ -663,49 +667,12 @@ public class FrameJuego1 extends javax.swing.JFrame {
         } else if (jButton6.getText().equals("Salir")) {
             if (JOptionPane.showConfirmDialog(rootPane, "¿Estas seguro de querer salir?") == 0) {
                 estadoFinalizacion=true;
-                //jugador.registrarPuntaje(this.puntaje,this);
                 this.juego1.terminarPartida();
                 super.dispose();
-                //new FrameJuegosDisponibles().iniciar(null);
             }
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    /*
-    
-    public LocalDateTime getInicio(){
-        return inicioFechaHora;
-    }
-
-    public LocalDateTime getFinalizacion(){
-        return finFechaHora;
-    }
-
-    public void setInicio(LocalDateTime fechaHora)
-    {
-        this.inicioFechaHora = fechaHora;
-    }
-    
-    public void setFinalizacion(LocalDateTime fechaHora){
-        this.finFechaHora = fechaHora;
-    }
-
-    public int getPuntaje(){
-        return puntaje;
-    }
-
-    public int getSegundosTotalesPartida(){
-        return (int) ChronoUnit.SECONDS.between(inicioFechaHora, finFechaHora);
-    }
-    
-    public boolean getEstadoFinalizado(){
-        return estadoFinalizacion;
-    }
-    
-    public iJugador getJugador(){
-        return jugador;
-    }
-    */
     
     /**
      * @param args the command line arguments

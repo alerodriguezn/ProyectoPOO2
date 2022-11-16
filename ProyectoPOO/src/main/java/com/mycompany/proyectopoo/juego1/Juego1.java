@@ -31,6 +31,10 @@ public final class Juego1 implements iJuego {
         this.descripcionJuego = "Coloca tres marcas respectivas en una fila horizontal, vertical o diagonal para ganar"; 
     }
     
+    /**
+    * Retorna la instancia del juego
+    * @return instancia del juego
+    */
     public static Juego1 getInstancia(){
         if (instancia == null)
         {
@@ -62,7 +66,9 @@ public final class Juego1 implements iJuego {
 
     }
 
-  
+    /**
+    * Termina la partida y recoge los datos necesarios para enviarlos al registro
+    */
     @Override
     public void terminarPartida(){
         registro.setJuego(getInstancia());
@@ -71,8 +77,6 @@ public final class Juego1 implements iJuego {
         registro.setPartidaFinalizada(true);
         centro.agregarRegistro(registro);
         jugadorActual.registrarPuntaje(puntaje, this);
-        System.out.println("Registro agregado");
-    
     }
 
     /**
@@ -94,11 +98,11 @@ public final class Juego1 implements iJuego {
     
     }
     
+    /**
+    * Actualiza el puntaje
+    * @param puntaje Total de puntos que se van a sumar
+    */
     public void setPuntaje(int puntaje) {
         this.puntaje += puntaje;
     }
-
-    
-
-    
 }

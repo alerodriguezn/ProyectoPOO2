@@ -154,7 +154,9 @@ public class JRegistro extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Limpia los campos de textos de la interfaz
+     */
     private void limpiarCampos(){
         txt_nickname.setText("");
         txt_passwd.setText("");
@@ -182,10 +184,6 @@ public class JRegistro extends javax.swing.JFrame {
             ProyectoPOO.guardarDatos();
             JOptionPane.showMessageDialog(null, "Usuario Creado");
         }
-        
-        
-        // [borrar esto] Prueba para comprobar si se estan agregando correctamente
-        ProyectoPOO.listaJugadores.forEach((jugador) -> System.out.println(jugador.getNombre()));
         
     }//GEN-LAST:event_btn_registrarActionPerformed
 

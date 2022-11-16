@@ -54,6 +54,7 @@ public class ProyectoPOO {
     /**
     * Retorna un string con el texto completo de un archivo de texto 
     * @param rutaConArchivo Ruta del archivo incluido el archivo a leer
+    * @return el texto del archivo
     */
     public static String leerArchivo(String rutaConArchivo)
     {
@@ -76,7 +77,9 @@ public class ProyectoPOO {
         return textoLeido;
     }
     
-    
+    /**
+    * Guarda los datos de los usuarios en el archivo de texto
+    */
     public static void guardarDatos(){
    
         

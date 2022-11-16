@@ -44,6 +44,10 @@ public final class Juego2 implements iJuego {
         this.listaPaises = new ArrayList<>();     
     }
     
+    /**
+    * Retorna la instancia del juego
+    * @return instancia del juego
+    */
     public static Juego2 getInstancia(){
         if (instancia == null)
         {
@@ -72,10 +76,11 @@ public final class Juego2 implements iJuego {
                 new FrameJuego2().setVisible(true);
             }
         });
-  
     }
 
-  
+    /**
+    * Termina la partida y recoge los datos necesarios para el registro
+    */
     @Override
     public void terminarPartida(){
         registro.setJuego(getInstancia());
@@ -106,7 +111,9 @@ public final class Juego2 implements iJuego {
     
     }
     
-    
+    /**
+    * Lee el archivo donde estan los paises y los almacena en un arraylist
+    */
     public void getPaises(){
         try {
             File myObj = new File("./paises.txt");
@@ -127,30 +134,38 @@ public final class Juego2 implements iJuego {
         }
     }
     
+    /**
+    * Establece aleatoriamente un pais
+    */
     public void setPais(){
          Random r = new Random();
          int numAleatorio = r.nextInt(26)+1;
          Pais paisElegido = listaPaises.get(numAleatorio);
          this.pais = paisElegido.getNombre();
          this.pista = paisElegido.getRegion();
-    
     }
 
+    /**
+    * Actualiza el puntaje
+    * @param puntaje puntos que se sumaran al puntaje actual
+    */
     public void setPuntaje(int puntaje) {
         this.puntaje += puntaje;
     }
 
+    /**
+    * Devuelve el pais
+    * @return pais
+    */
     public String getPais() {
         return pais;
     }
 
+    /**
+    * Devuelve una pista: la region del pais
+    * @return pista
+    */
     public String getPista() {
         return pista;
-    }
-    
-
-    
-    
-
-    
+    }   
 }

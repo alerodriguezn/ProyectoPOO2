@@ -101,6 +101,10 @@ public class Registro implements iRegistro {
     
     }
 
+    /**
+    * Establece el puntaje de un registro
+    * @param puntaje recibe el puntaje
+    */
     public void setPuntaje(int puntaje) {
         this.puntaje = puntaje;
     }
@@ -115,18 +119,34 @@ public class Registro implements iRegistro {
     
     }
 
+    /**
+    * Establece un true o false dependiendo si la partida es finaliza o no
+    * @param partidaFinalizada Estado de la partida finalizada, true finalizada, false no finalizada
+    */
     public void setPartidaFinalizada(Boolean partidaFinalizada) {
         this.partidaFinalizada = partidaFinalizada;
     }
     
+    /**
+    * Retorna la instancia del juego registrada
+    * @return el juego actual registrado
+    */
     public iJuego getJuego(){
         return this.juego;
     }
     
+    /**
+    * Establce la instancia del juego que se quiere registrar
+    * @param juego Instancia del juego a registrar
+    */
     public void setJuego(iJuego juego) {
         this.juego = juego;
     }
     
+    /**
+    * Guarda los registros en un archivo de texto 
+    * @param historial Obtiene un arraylist con los registros ya existentes y los que se desean agregar
+    */
     public static void guardarRegistros(ArrayList<iRegistro> historial) {
         try {
             FileWriter file = new FileWriter("./historial.txt");
@@ -142,6 +162,9 @@ public class Registro implements iRegistro {
         }
     }
     
+    /**
+    * Lee y obtiene los registros de un archivo de texto para almacenarlos en un arraylist
+    */
     public static ArrayList<iRegistro> obtenerRegistros() {
         ArrayList<iRegistro> historial = new ArrayList<iRegistro>();
         try {

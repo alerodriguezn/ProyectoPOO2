@@ -64,6 +64,10 @@ public class Jugador implements iJugador{
         historial.add(registro);
     }
     
+    /**
+     * Devuelve la contraseña
+     * @return la contraseña
+     */
     public String getContrasena() {
         return contrasena;
     }
@@ -81,9 +85,7 @@ public class Jugador implements iJugador{
         for (String s : registros) {
             System.out.println(s);
         }
-        
     }
-  
 
     /**
      * Listado de registros de juego del usuario para un mismo tipo de juego.
@@ -98,21 +100,6 @@ public class Jugador implements iJugador{
                 estad.add(reg);
            }
         });
-        
-        return estad;
-        
-        /*
-        for (iRegistro reg : historial) {
-            if (reg.getJuego().getNombre().equals(tipoJuego)) {
-                estad.add(reg);
-            }
-        }*/
-        
+        return estad;   
     }
-    
-   
-    
-    
-    
-    
 }

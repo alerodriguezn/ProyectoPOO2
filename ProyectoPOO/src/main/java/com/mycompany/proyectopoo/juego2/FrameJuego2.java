@@ -222,6 +222,9 @@ public class FrameJuego2 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_paisAdivinarActionPerformed
 
+    /**
+    * Averigua la cantidad de letras y la forma del texto del pais
+    */
     private void obtenerNumerodeLetras() {
         this.numeroLetras = this.paisNombre.length();
         String str = "";
@@ -236,6 +239,9 @@ public class FrameJuego2 extends javax.swing.JFrame {
         txt_paisAdivinar.setText(str);
     }
 
+    /**
+    * Inicia el juego y muestra los puntos actuales
+    */
     public void iniciarJuego() {
         obtenerNumerodeLetras();
         lbl_puntos.setText("Puntos: " + this.puntaje);

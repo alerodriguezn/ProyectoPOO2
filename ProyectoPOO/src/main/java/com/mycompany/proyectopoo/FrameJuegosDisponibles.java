@@ -51,6 +51,10 @@ public class FrameJuegosDisponibles extends javax.swing.JFrame implements iCentr
         
     }
     
+    /**
+     * Indica los datos del nombre del jugador y el titulo de juegos disponibles 
+     * * @param jugadorAct la instancia del jugador que se encuentra logueado
+     */
     public void iniciar(iJugador jugadorAct)
     {
         this.jugador = jugadorAct;
@@ -89,6 +93,10 @@ public class FrameJuegosDisponibles extends javax.swing.JFrame implements iCentr
     
     }
     
+    /**
+     * Agrega al arraylist de registros un nuevo registro.
+     * * @param registro el nuevo registro a agregar
+     */
     public void agregarRegistro(iRegistro registro) {
         historial.add(registro);
         for(iRegistro reg: historial){
@@ -96,6 +104,49 @@ public class FrameJuegosDisponibles extends javax.swing.JFrame implements iCentr
         }
     }
     
+    /**
+     * Ordena el arraylist por puntaje
+     * @param registros Ordena un arraylist por puntaje
+     */
+    public void ordenadoXPuntaje(ArrayList<iRegistro> registros){   
+        registros.sort((iRegistro x, iRegistro y) -> y.getPuntaje() - x.getPuntaje());      
+        
+        for (int x = 0; x < 10; x++) {
+            if (x < registros.size()) {
+                iRegistro r = registros.get(x);
+                txt_estadisticas.append(
+                        "\n | Nombre Usuario: " + r.getJugador().getNombre() +
+                        " | Puntaje: " + r.getPuntaje() +
+                        " | Inicio: "+r.getInicio().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))+
+                        " | Final: "+r.getFinalizacion().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))+"\n"
+                );
+            }
+        }
+       }
+    
+     /**
+     * Ordena el arraylist por fecha
+     * @param listaRegistros Ordena un arraylist por fechas
+     */
+    public void ordenadoXFecha(ArrayList<iRegistro> listaRegistros){
+        int juegos = 0;
+        int horasJugadas = 0;
+        for (iRegistro registro: listaRegistros) {
+            if (registro.getJugador().getNombre().equals(jugador.getNombre())){
+                juegos++;
+                horasJugadas += registro.getSegundosTotalesPartida();
+                txt_estadisticas.append(
+                        "\nPuntaje: "+registro.getPuntaje() +
+                        " | Inicio: "+registro.getInicio().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))+
+                        " | Final: "+registro.getFinalizacion().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))+
+                        " | Tiempo: "+registro.getSegundosTotalesPartida()+" Segundos"+
+                        " | Finalizada: "+registro.getEstadoFinalizado()+"\n"
+                );
+            
+            }
+        }
+        lbl_partidasJugadas.setText("Partidas Jugadas: " + juegos);
+    }
     
     
     /**
@@ -375,21 +426,7 @@ public class FrameJuegosDisponibles extends javax.swing.JFrame implements iCentr
         txt_estadisticas.setBackground(colorVerde);
         txt_estadisticas.setForeground(Color.WHITE);
         txt_estadisticas.setText("");
-        //Método para ordenar el arrayList(Por puntaje)
-        ArrayList<iRegistro> registros = getRegistros(Juego2.getInstancia());
-        registros.sort((iRegistro x, iRegistro y) -> y.getPuntaje() - x.getPuntaje());      
-        
-        for (int x = 0; x < 10; x++) {
-            if (x < registros.size()) {
-                iRegistro r = registros.get(x);
-                txt_estadisticas.append(
-                        "\n | Nombre Usuario: " + r.getJugador().getNombre() +
-                        " | Puntaje: " + r.getPuntaje() +
-                        " | Inicio: "+r.getInicio().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))+
-                        " | Final: "+r.getFinalizacion().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))+"\n"
-                );
-            }
-        }
+        ordenadoXPuntaje(getRegistros(Juego2.getInstancia()));
     }//GEN-LAST:event_btn_generales2ActionPerformed
 
     private void btn_personales2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_personales2ActionPerformed
@@ -398,29 +435,7 @@ public class FrameJuegosDisponibles extends javax.swing.JFrame implements iCentr
         txt_estadisticas.setBackground(colorVerde);
         txt_estadisticas.setForeground(Color.WHITE);
         txt_estadisticas.setText("");
-        ArrayList<iRegistro> listaRegistros = new ArrayList<iRegistro>();
-        listaRegistros = getRegistros(Juego2.getInstancia());
-        int juegos = 0;
-        int horasJugadas = 0;
-        for (iRegistro registro: listaRegistros) {
-            if (registro.getJugador().getNombre().equals(jugador.getNombre())){
-                juegos++;
-                horasJugadas += registro.getSegundosTotalesPartida();
-                txt_estadisticas.setText(
-                        "\nPuntaje: "+registro.getPuntaje() +
-                        " | Inicio: "+registro.getInicio().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))+
-                        " | Final: "+registro.getFinalizacion().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))+
-                        " | Tiempo: "+registro.getSegundosTotalesPartida()+" Segundos"+
-                        " | Finalizada: "+registro.getEstadoFinalizado()+"\n"
-                );
-            
-            }
-        
-        
-        }
-        
-        lbl_partidasJugadas.setText("Partidas Jugadas: " + juegos);
-        
+        ordenadoXFecha(getRegistros(Juego2.getInstancia()));
     }//GEN-LAST:event_btn_personales2ActionPerformed
 
     private void btn_generales1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_generales1ActionPerformed
@@ -429,55 +444,16 @@ public class FrameJuegosDisponibles extends javax.swing.JFrame implements iCentr
         txt_estadisticas.setBackground(colorVerde);
         txt_estadisticas.setForeground(Color.WHITE);
         txt_estadisticas.setText("");
-       //Método para ordenar el arrayList(Por puntaje)
-        ArrayList<iRegistro> registros = getRegistros(Juego1.getInstancia());
-        registros.sort((iRegistro x, iRegistro y) -> y.getPuntaje() - x.getPuntaje());      
-        
-        for (int x = 0; x < 10; x++) {
-            if (x < registros.size()) {
-                iRegistro r = registros.get(x);
-                txt_estadisticas.append(
-                        "\n | Nombre Usuario: " + r.getJugador().getNombre() +
-                        " | Puntaje: " + r.getPuntaje() +
-                        " | Inicio: "+r.getInicio().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))+
-                        " | Final: "+r.getFinalizacion().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))+"\n"
-                );
-            }
-        }
-        
-        
+        ordenadoXPuntaje(getRegistros(Juego1.getInstancia())); 
     }//GEN-LAST:event_btn_generales1ActionPerformed
 
-    
-    
-    
     private void btn_personales1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_personales1ActionPerformed
         lbl_partidasJugadas.setText("");
         Color colorVerde = new Color(71,110,110);
         txt_estadisticas.setBackground(colorVerde);
         txt_estadisticas.setForeground(Color.WHITE);
         txt_estadisticas.setText("");
-        ArrayList<iRegistro> listaRegistros = new ArrayList<iRegistro>();
-        listaRegistros = getRegistros(Juego1.getInstancia());
-        int juegos = 0;
-        int horasJugadas = 0;
-        for (iRegistro registro: listaRegistros) {
-            if (registro.getJugador().getNombre().equals(jugador.getNombre())){
-                juegos++;
-                horasJugadas += registro.getSegundosTotalesPartida();
-                txt_estadisticas.append(
-                        "\nPuntaje: "+registro.getPuntaje() +
-                        " | Inicio: "+registro.getInicio().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))+
-                        " | Final: "+registro.getFinalizacion().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))+
-                        " | Tiempo: "+registro.getSegundosTotalesPartida()+" Segundos"+
-                        " | Finalizada: "+registro.getEstadoFinalizado()+"\n"
-                );
-            
-            }             
-        }
-        
-        lbl_partidasJugadas.setText("Partidas Jugadas: " + juegos);
-        
+        ordenadoXFecha(getRegistros(Juego1.getInstancia()));
     }//GEN-LAST:event_btn_personales1ActionPerformed
 
     /**

@@ -17,18 +17,34 @@ public class Pais {
         this.region = region;
     }
 
+    /**
+    * Devulve el nombre del pais
+    * @return nombre del pais
+    */
     public String getNombre() {
         return nombre;
     }
-
+    
+    /**
+    * Devulve la region del pais
+    * @return region del pais
+    */
     public String getRegion() {
         return region;
     }
 
+    /**
+    * Asigna el nombre del pais
+    * @param nombre nombre del pais
+    */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    /**
+    * Asigna la region del pais
+    * @param region region del paus
+    */
     public void setRegion(String region) {
         this.region = region;
     }

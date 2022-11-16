@@ -9,9 +9,6 @@ import com.mycompany.proyectopoo.jugador.Jugador;
 import com.mycompany.proyectopoo.FrameJuegosDisponibles;
 import com.mycompany.proyectopoo.interfaces.iJugador;
 
-
-
-
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -162,10 +159,17 @@ public class JLogin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Devuelve la instancia del jugador
+     * @return instancia del jugador
+     */
     public iJugador getJugador(Jugador j) {
         return j ;
     }
     
+    /**
+     * Limpia los campos de texto de la interfaz
+     */
     private void limpiarCampos(){
         txt_nickname.setText("");
         txt_passwd.setText("");
