@@ -9,7 +9,7 @@ import java.util.Set;
 import javax.swing.JOptionPane;
 
 /**
- *
+ *'JFrame del juego de Adivinar Paises
  * @author navar
  */
 public class FrameJuego2 extends javax.swing.JFrame {

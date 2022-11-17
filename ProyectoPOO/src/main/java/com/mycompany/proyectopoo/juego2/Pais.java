@@ -5,7 +5,8 @@
 package com.mycompany.proyectopoo.juego2;
 
 /**
- *
+ *Clase que describe las caracteristicas del pais
+ * 
  * @author navar
  */
 public class Pais {

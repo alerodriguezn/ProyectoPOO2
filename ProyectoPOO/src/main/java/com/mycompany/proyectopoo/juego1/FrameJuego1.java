@@ -29,7 +29,8 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Usuario
+ * JFrame del juego Tic Tac Toe
+ * @author Deivid
  */
 public class FrameJuego1 extends javax.swing.JFrame {
 

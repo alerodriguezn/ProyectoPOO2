@@ -10,6 +10,7 @@ package com.mycompany.proyectopoo.interfaces;
  */
 import java.time.LocalDateTime;
 
+
 public interface iRegistro
 {
     /**

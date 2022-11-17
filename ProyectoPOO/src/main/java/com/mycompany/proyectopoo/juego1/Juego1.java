@@ -13,7 +13,7 @@ import com.mycompany.proyectopoo.Registro;
 
 import java.time.LocalDateTime;
 /**
- *
+ * Juego Tic Tac Toe
  * @author navar
  */
 public final class Juego1 implements iJuego {

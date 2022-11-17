@@ -18,8 +18,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author navar
+ *Clase Principal
+ * @author Alejandro
  */
 public class ProyectoPOO {
     public static int puntosJugador = 0;

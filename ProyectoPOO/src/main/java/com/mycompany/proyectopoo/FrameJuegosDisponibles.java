@@ -25,8 +25,8 @@ import java.util.Comparator;
 
 
 /**
- *
- * @author Usuario
+ *JFrame del Centro de Juegos
+ * @author Deivid
  */
 public class FrameJuegosDisponibles extends javax.swing.JFrame implements iCentroJuego {
     

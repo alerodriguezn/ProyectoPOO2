@@ -23,6 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
  *
+ * Juego de Adivinar Paises
  * @author navar
  */
 public final class Juego2 implements iJuego {
