@@ -1,0 +1,69 @@
+@options
+@packages
+@argfile
+-encoding
+'UTF-8'
+-protected
+-source
+'18'
+-sourcepath
+'C:/Users/navar/Documents/NetBeansProjects/PjPOO2/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2022. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/navar/Documents/NetBeansProjects/PjPOO2/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'PjPOO2 1.0-SNAPSHOT API'
+-use
+-version
+-windowtitle
+'PjPOO2 1.0-SNAPSHOT API'
+interfaces
+juego1
+juego2
+jugador
+login
+main
+'C:/Users/navar/Documents/NetBeansProjects/PjPOO2/src/main/java/interfaces/iCentroJuego.java'
+'C:/Users/navar/Documents/NetBeansProjects/PjPOO2/src/main/java/interfaces/iJuego.java'
+'C:/Users/navar/Documents/NetBeansProjects/PjPOO2/src/main/java/interfaces/iJugador.java'
+'C:/Users/navar/Documents/NetBeansProjects/PjPOO2/src/main/java/interfaces/iRegistro.java'
+'C:/Users/navar/Documents/NetBeansProjects/PjPOO2/src/main/java/juego1/FrameJuego1.java'
+'C:/Users/navar/Documents/NetBeansProjects/PjPOO2/src/main/java/juego1/Juego1.java'
+'C:/Users/navar/Documents/NetBeansProjects/PjPOO2/src/main/java/juego1/TicTacToe.java'
+'C:/Users/navar/Documents/NetBeansProjects/PjPOO2/src/main/java/juego2/FrameJuego2.java'
+'C:/Users/navar/Documents/NetBeansProjects/PjPOO2/src/main/java/juego2/Juego2.java'
+'C:/Users/navar/Documents/NetBeansProjects/PjPOO2/src/main/java/juego2/Pais.java'
+'C:/Users/navar/Documents/NetBeansProjects/PjPOO2/src/main/java/jugador/Jugador.java'
+'C:/Users/navar/Documents/NetBeansProjects/PjPOO2/src/main/java/login/JLogin.java'
+'C:/Users/navar/Documents/NetBeansProjects/PjPOO2/src/main/java/login/JRegistro.java'
+'C:/Users/navar/Documents/NetBeansProjects/PjPOO2/src/main/java/main/CentroJuego.java'
+'C:/Users/navar/Documents/NetBeansProjects/PjPOO2/src/main/java/main/FrameJuegosDisponibles.java'
+'C:/Users/navar/Documents/NetBeansProjects/PjPOO2/src/main/java/main/ProyectoPOO.java'
+'C:/Users/navar/Documents/NetBeansProjects/PjPOO2/src/main/java/main/Registro.java'
+C:\Users\navar\Documents\NetBeansProjects\PjPOO2\src\main\java = 1668648251190
+C:\Users\navar\Documents\NetBeansProjects\PjPOO2\target\site\apidocs\allclasses-index.html = 1668649701958
+C:\Users\navar\Documents\NetBeansProjects\PjPOO2\target\site\apidocs\allpackages-index.html = 1668649701960
+C:\Users\navar\Documents\NetBeansProjects\PjPOO2\target\site\apidocs\copy.svg = 1668649701988
+C:\Users\navar\Documents\NetBeansProjects\PjPOO2\target\site\apidocs\element-list = 1668649701775
+C:\Users\navar\Documents\NetBeansProjects\PjPOO2\target\site\apidocs\help-doc.html = 1668649701984
+C:\Users\navar\Documents\NetBeansProjects\PjPOO2\target\site\apidocs\index-all.html = 1668649701979
+C:\Users\navar\Documents\NetBeansProjects\PjPOO2\target\site\apidocs\index.html = 1668649701943
+C:\Users\navar\Documents\NetBeansProjects\PjPOO2\target\site\apidocs\javadoc.bat = 1668649587391
+C:\Users\navar\Documents\NetBeansProjects\PjPOO2\target\site\apidocs\jquery-ui.overrides.css = 1668649702015
+C:\Users\navar\Documents\NetBeansProjects\PjPOO2\target\site\apidocs\member-search-index.js = 1668649701963
+C:\Users\navar\Documents\NetBeansProjects\PjPOO2\target\site\apidocs\module-search-index.js = 1668649701961
+C:\Users\navar\Documents\NetBeansProjects\PjPOO2\target\site\apidocs\overview-summary.html = 1668649701981
+C:\Users\navar\Documents\NetBeansProjects\PjPOO2\target\site\apidocs\overview-tree.html = 1668649701940
+C:\Users\navar\Documents\NetBeansProjects\PjPOO2\target\site\apidocs\package-search-index.js = 1668649701961
+C:\Users\navar\Documents\NetBeansProjects\PjPOO2\target\site\apidocs\script.js = 1668649701987
+C:\Users\navar\Documents\NetBeansProjects\PjPOO2\target\site\apidocs\search.js = 1668649701990
+C:\Users\navar\Documents\NetBeansProjects\PjPOO2\target\site\apidocs\serialized-form.html = 1668649701864
+C:\Users\navar\Documents\NetBeansProjects\PjPOO2\target\site\apidocs\stylesheet.css = 1668649701986
+C:\Users\navar\Documents\NetBeansProjects\PjPOO2\target\site\apidocs\tag-search-index.js = 1668649701964
+C:\Users\navar\Documents\NetBeansProjects\PjPOO2\target\site\apidocs\type-search-index.js = 1668649701962
