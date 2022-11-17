@@ -23,6 +23,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
+import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -661,12 +662,17 @@ public class FrameJuego1 extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         if (jButton6.getText().equals("Rendirse")) {
             if (JOptionPane.showConfirmDialog(rootPane, "¿Estas seguro de querer rendirte? Perderás todos tus puntos!") == 0) {
-                this.puntaje = 0;
+                this.juego1.setFinalizada(false);
+                this.juego1.setPuntaje2();
+                this.juego1.terminarPartida();
+                this.dispose();
+                
                 super.dispose();
             }
         } else if (jButton6.getText().equals("Salir")) {
             if (JOptionPane.showConfirmDialog(rootPane, "¿Estas seguro de querer salir?") == 0) {
                 estadoFinalizacion=true;
+                this.juego1.setFinalizada(true);
                 this.juego1.terminarPartida();
                 super.dispose();
             }

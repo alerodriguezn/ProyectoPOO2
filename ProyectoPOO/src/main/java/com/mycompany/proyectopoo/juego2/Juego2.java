@@ -32,6 +32,7 @@ public final class Juego2 implements iJuego {
     private String nombreJuego;
     private String descripcionJuego;
     private int puntaje = 0;
+    private boolean finalizada = false;
     private static Juego2 instancia;
     private String pais;
     private String pista;
@@ -86,7 +87,7 @@ public final class Juego2 implements iJuego {
         registro.setJuego(getInstancia());
         registro.setFinalizacion(LocalDateTime.now());
         registro.setPuntaje(puntaje);
-        registro.setPartidaFinalizada(true);
+        registro.setPartidaFinalizada(finalizada);
         centro.agregarRegistro(registro);
         jugadorActual.registrarPuntaje(puntaje, this);
         System.out.println("Registro agregado");
@@ -152,6 +153,19 @@ public final class Juego2 implements iJuego {
     public void setPuntaje(int puntaje) {
         this.puntaje += puntaje;
     }
+    
+    
+    /**
+    * Actualiza el puntaje
+    */
+    public void setPuntaje2() {
+        this.puntaje = 0;
+    }
+
+    public void setFinalizada(boolean finalizada) {
+        this.finalizada = finalizada;
+    }
+    
 
     /**
     * Devuelve el pais

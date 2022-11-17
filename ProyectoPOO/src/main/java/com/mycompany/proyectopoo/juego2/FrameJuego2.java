@@ -5,6 +5,7 @@
 package com.mycompany.proyectopoo.juego2;
 
 import java.io.IOException;
+import java.util.Set;
 import javax.swing.JOptionPane;
 
 /**
@@ -69,6 +70,7 @@ public class FrameJuego2 extends javax.swing.JFrame {
         txt_paisAdivinar = new javax.swing.JTextField();
         lbl_puntos = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        jButton6 = new javax.swing.JButton();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -149,6 +151,16 @@ public class FrameJuego2 extends javax.swing.JFrame {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Pistas 🔍:");
 
+        jButton6.setBackground(new java.awt.Color(255, 0, 0));
+        jButton6.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(255, 255, 255));
+        jButton6.setText("Rendirse");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -184,7 +196,10 @@ public class FrameJuego2 extends javax.swing.JFrame {
                         .addGap(129, 129, 129))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(txt_paisAdivinar, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(51, 51, 51))))
+                        .addGap(51, 51, 51))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,7 +227,9 @@ public class FrameJuego2 extends javax.swing.JFrame {
                 .addComponent(txt_respuesta, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_comprobar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -221,6 +238,14 @@ public class FrameJuego2 extends javax.swing.JFrame {
     private void txt_paisAdivinarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_paisAdivinarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_paisAdivinarActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        this.juego2.setPuntaje2();
+        this.juego2.setFinalizada(false);
+        this.juego2.terminarPartida();
+        this.dispose();
+        
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
     * Averigua la cantidad de letras y la forma del texto del pais
@@ -266,6 +291,7 @@ public class FrameJuego2 extends javax.swing.JFrame {
             
         } else if (this.vidas == 1) {
             JOptionPane.showMessageDialog(null, "La Partida Ha Finalizado, No tienes mas Vidas");
+            this.juego2.setFinalizada(true);
             this.juego2.terminarPartida();
             this.dispose();
         } else {
@@ -326,6 +352,7 @@ public class FrameJuego2 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_comprobar;
+    private javax.swing.JButton jButton6;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JEditorPane jEditorPane1;

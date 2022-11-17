@@ -25,6 +25,7 @@ public final class Juego1 implements iJuego {
     private int puntaje = 0;
     private static Juego1 instancia;
     public static iJugador jugadorActual;
+    private boolean finalizada = false;
     
     private Juego1(){
         this.nombreJuego = "Tic Tac Toe";// PRUEBA
@@ -74,7 +75,7 @@ public final class Juego1 implements iJuego {
         registro.setJuego(getInstancia());
         registro.setFinalizacion(LocalDateTime.now());
         registro.setPuntaje(puntaje);
-        registro.setPartidaFinalizada(true);
+        registro.setPartidaFinalizada(finalizada);
         centro.agregarRegistro(registro);
         jugadorActual.registrarPuntaje(puntaje, this);
     }
@@ -99,10 +100,25 @@ public final class Juego1 implements iJuego {
     }
     
     /**
+     * Actualiza si la partida fue finalizada
+     * @param finalizada partida finalizada
+     */
+    public void setFinalizada(boolean finalizada) {
+        this.finalizada = finalizada;
+    }
+    
+    /**
     * Actualiza el puntaje
     * @param puntaje Total de puntos que se van a sumar
     */
     public void setPuntaje(int puntaje) {
         this.puntaje += puntaje;
+    }
+    
+    /**
+    * Actualiza el puntaje
+    */
+    public void setPuntaje2() {
+        this.puntaje = 0;
     }
 }

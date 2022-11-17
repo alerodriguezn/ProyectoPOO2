@@ -23,6 +23,8 @@ import java.util.Scanner;
 
 /**
  *
+ * Describe los atributos del registro de los puntajes
+ * 
  * @author navar
  */
 public class Registro implements iRegistro {
@@ -34,6 +36,13 @@ public class Registro implements iRegistro {
     private iJugador jugador;
     private int puntaje;
     
+  
+   /**
+    *Constructor de la clase Registro
+    * @param jugador jugador
+    * 
+    * 
+    */
     public Registro(iJugador jugador){
         this.jugador = jugador;
     }
@@ -164,6 +173,8 @@ public class Registro implements iRegistro {
     
     /**
     * Lee y obtiene los registros de un archivo de texto para almacenarlos en un arraylist
+    * 
+    * @return devuelve el historial de partidas
     */
     public static ArrayList<iRegistro> obtenerRegistros() {
         ArrayList<iRegistro> historial = new ArrayList<iRegistro>();
